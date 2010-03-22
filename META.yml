@@ -1,0 +1,25 @@
+---
+abstract: 'Moose XML Processor'
+author:
+  - 'Catalyst SRS Team <team-srs@catalyst.net.nz>'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 0.95'
+license: artistic
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: PRANG
+no_index:
+  directory:
+    - inc
+    - t
+requires:
+  Moose: 0.92
+  perl: 5.01
+resources:
+  license: http://opensource.org/licenses/artistic-license.php
+version: 0.01

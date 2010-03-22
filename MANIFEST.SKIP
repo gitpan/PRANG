@@ -1,0 +1,10 @@
+\.bak$
+~$
+Makefile$
+^\.git
+^blib/
+^debian/
+-stamp$
+perltidy.pl
+cover_db
+\.perltidyrc
