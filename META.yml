@@ -4,10 +4,11 @@ author:
   - 'Catalyst SRS Team <team-srs@catalyst.net.nz>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
+  XML::Compare: 0.02
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.95'
+generated_by: 'Module::Install version 0.91'
 license: artistic
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,7 +20,9 @@ no_index:
     - t
 requires:
   Moose: 0.92
+  MooseX::Method::Signatures: 0.17
+  XML::LibXML: 1.65
   perl: 5.01
 resources:
   license: http://opensource.org/licenses/artistic-license.php
-version: 0.01
+version: 0.02
