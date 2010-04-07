@@ -11,13 +11,16 @@ use inc::Module::Install;
 name            ("PRANG");
 abstract        ("Moose XML Processor");
 author          ("Catalyst SRS Team <team-srs\@catalyst.net.nz>");
-version         0.02;
+version_from     "lib/PRANG.pm";
 license         ('artistic');
+no_index	directory => 'doc';
 
 requires        ("perl" => 5.010);
 requires        ("Moose" => 0.92);
+requires        ("Set::Object" => 1.09);
 requires        ("XML::LibXML" => 1.65);
 requires        ("MooseX::Method::Signatures" => 0.17);
 test_requires   ("XML::Compare" => 0.02);
+test_requires   ("Scriptalicious" => 0);
 
 &WriteAll;

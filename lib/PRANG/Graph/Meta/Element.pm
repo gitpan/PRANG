@@ -41,9 +41,11 @@ has 'xml_max' =>
 	predicate => "has_xml_max",
 	;
 
-has '+isa' =>
-	required => 1,
-	;
+# FIXME: see commitlog, core Moose should get support for this again
+#        (perhaps)
+#has '+isa' =>
+#	required => 1,
+#	;
 
 has 'graph_node' =>
 	is => "rw",
@@ -85,7 +87,10 @@ method build_graph_node() {
 		$expect_one = 1;
 	}
 
-	my $t_c = $self->type_constraint;
+	my $t_c = $self->type_constraint
+		or $self->error(
+		"No type constraint on attribute; did you specify 'isa'?",
+		       );
 
 	# check to see whether ArrayRef was specified
 	if ( $t_c->is_a_type_of("ArrayRef") ) {
@@ -177,6 +182,11 @@ method build_graph_node() {
 		for my $user ( @users ) {
 			if ( $user->does("PRANG::Graph") ) {
 				my $root_element = $user->root_element;
+				if ( exists $nodeName->{$root_element} ) {
+					$self->error(
+"Both '$user' and '$nodeName->{$root_element}' plug-in type specify $root_element root_element, not supported",
+					       );
+				}
 				$nodeName->{$root_element} = $user;
 			}
 			elsif ( $user->does("PRANG::Graph::Class") ) {
@@ -219,10 +229,10 @@ method build_graph_node() {
 				}
 			}
 			if ( !$class->meta->can("marshall_in_element") ) {
-				die "'$class' can't marshall in; did you 'with' the 'PRANG::Graph::Class' role?";
+				die "'$class' can't marshall in; did you 'use PRANG::Graph'?";
 			}
 			if ( ($class->xmlns||"") ne ($xmlns||"") ) {
-				push @xmlns, (xmlns => $class->xmlns);
+				push @xmlns, (xmlns => ($class->xmlns||""));
 			}
 		}
 		my (@names) = grep { $nodeName->{$_} eq $class }

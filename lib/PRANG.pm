@@ -2,7 +2,7 @@
 package PRANG;
 use PRANG::Marshaller;
 
-our $VERSION = "0.01";
+our $VERSION = "0.03";
 
 1;
 
