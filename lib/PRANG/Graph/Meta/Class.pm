@@ -80,35 +80,101 @@ method build_graph( ) {
 	}
 }
 
+sub add_to_list($$) {
+	if ( !defined $_[0] ) {
+		$_[0] = $_[1];
+	}
+	else {
+		if ( (ref($_[0])||"") ne "ARRAY" ) {
+			$_[0] = [ $_[0] ];
+		}
+		push @{ $_[0] }, $_[1];
+	}
+}
+
+sub as_listref($) {
+	if ( ref($_[0]) eq "ARRAY" ) {
+		$_[0]
+	}
+	else {
+		[ $_[0] ];
+	}
+}
+
+sub as_item($) {
+	if ( ref($_[0]) eq "ARRAY" ) {
+		die scalar(@{$_[0]})." item(s) found where 1 expected";
+	}
+	else {
+		$_[0];
+	}
+}
+
 method accept_attributes( ArrayRef[XML::LibXML::Attr] $node_attr, PRANG::Graph::Context $context ) {
 
 	my $attributes = $self->xml_attr;
-	my @rv;
+	my %rv;
 	# process attributes
 	for my $attr ( @$node_attr ) {
 		my $prefix = $attr->prefix;
 		if ( !defined $prefix ) {
-			$prefix = $context->prefix||"";
+			$prefix = "";
 		}
-		if ( !exists $context->xsi->{$prefix} ) {
+		if ( length $prefix and !exists $context->xsi->{$prefix} ) {
 			$context->exception("unknown xmlns prefix '$prefix'");
 		}
 		my $xmlns = $context->get_xmlns($prefix);
 		$xmlns //= "";
-		my $meta_att = $attributes->{$xmlns}{"*"} ||
-			$attributes->{$xmlns}{$attr->localname};
+		my $meta_att = $attributes->{$xmlns}{$attr->localname};
+		my $xmlns_att_name;
+		my $_xmlns_att_name = sub {
+			$xmlns_att_name = $meta_att->xmlns_attr
+				or $context->exception(
+			"xmlns wildcarded, but no xmlns_attr set on "
+				.$self->name." property '"
+					.$meta_att->att_name."'",
+			       );
+		};
 
 		if ( $meta_att ) {
 			# sweet, it's ok
 			my $att_name = $meta_att->name;
-			push @rv, $att_name, $attr->value;
+			add_to_list($rv{$att_name}, $attr->value);
+		}
+		elsif ( $meta_att = $attributes->{"*"}{$attr->localname} ) {
+			# wildcard xmlns only; need to store the xmlns
+			# in another attribute.  Also, multiple values
+			# may appear with different xml namespaces.
+			my $att_name = $meta_att->name;
+			$_xmlns_att_name->();
+			add_to_list($rv{$att_name}, $attr->value);
+			add_to_list($rv{$xmlns_att_name}, $xmlns);
+		}
+		elsif ( $meta_att = $attributes->{$xmlns}{"*"} ) {
+			# wildcard attribute name.  This attribute gets
+			# HashRef treatment.
+			$rv{$meta_att->name}{$attr->localname} = $attr->value;
+		}
+		elsif ( $meta_att = $attributes->{"*"}{"*"} ) {
+			# wildcard attribute name and namespace.  Both
+			# attributes gets the joy of HashRef[ArrayRef[Str]|Str]
+			my $att_name = $meta_att->name;
+			$_xmlns_att_name->();
+			add_to_list(
+				$rv{$att_name}{$attr->localname},
+				$attr->value,
+			       );
+			add_to_list(
+				$rv{$xmlns_att_name}{$attr->localname},
+				$xmlns
+			       );
 		}
 		else {
 			# fail.
 			$context->exception("invalid attribute '".$attr->name."'");
 		}
 	};
-	@rv;
+	(%rv);
 }
 
 method accept_childnodes( ArrayRef[XML::LibXML::Node] $childNodes, PRANG::Graph::Context $context ) {
@@ -121,33 +187,21 @@ method accept_childnodes( ArrayRef[XML::LibXML::Node] $childNodes, PRANG::Graph:
 		@$childNodes;
 	while ( my $input_node = shift @nodes ) {
 		next if $input_node->nodeType == XML_COMMENT_NODE;
-		if ( my ($key, $value, $name) =
-			     $graph->accept($input_node, $context) ) {
+		my ($key, $value, $name) =
+			$graph->accept($input_node, $context);
+		if ( !$key ) {
+			my (@what) = $graph->expected($context);
 			$context->exception(
-				"internal error: missing key",
+				"unexpected node: expecting @what",
 				$input_node,
-			       ) unless $key;
-			my $meta_att;
-			# this is long-winded, but lets the fast path avoid
-			# too many temporary arrays.
-			if ( exists $init_args{$key} ) {
-				if ( !ref $init_args{$key} or
-					     ref $init_args{$key} ne "ARRAY" ) {
-					$init_args{$key} = [$init_args{$key}];
-					$init_arg_names{$key} = [$init_arg_names{$key}]
-						if exists $init_arg_names{$key};
-				}
-				push @{$init_args{$key}}, $value;
-				if (defined $name) {
-					my $idx = $#{$init_args{$key}};
-					$init_arg_names{$key}[$idx] = $name;
-				}
-			}
-			else {
-				$init_args{$key} = $value;
-				$init_arg_names{$key} = $name
-					if defined $name;
-			}
+			       );
+		}
+		add_to_list($init_args{$key}, $value);
+		if ( defined $name ) {
+			add_to_list(
+				$init_arg_names{$key},
+				$name,
+			       );
 		}
 	}
 
@@ -162,37 +216,24 @@ method accept_childnodes( ArrayRef[XML::LibXML::Node] $childNodes, PRANG::Graph:
 	for my $element ( @{ $self->xml_elements } ) {
 		my $key = $element->name;
 		next unless exists $init_args{$key};
+		my $expect;
 		if ( $element->has_xml_max and $element->xml_max == 1 ) {
-			# expect item
-			if ( $element->has_xml_nodeName_attr and
-				     exists $init_arg_names{$key} ) {
-				push @rv, $element->xml_nodeName_attr =>
-					delete $init_arg_names{$key};
-			}
-			if (ref $init_args{$key} and
-				    ref $init_args{$key} eq "ARRAY" ) {
-				$context->exception(
-"internal error: we ended up multiple values set for '$key' attribute",
-				       );
-			}
-			push @rv, $key => delete $init_args{$key}
+			$expect = \&as_item;
 		}
 		else {
-			# expect list
-			if ( !ref $init_args{$key} or
-				     ref $init_args{$key} ne "ARRAY" ) {
-				$init_args{$key} = [$init_args{$key}];
-				$init_arg_names{$key} = [$init_arg_names{$key}]
-					if exists $init_arg_names{$key};
-			}
-			if ( $element->has_xml_nodeName_attr and
-				     exists $init_arg_names{$key} ) {
-				push @rv,
-					$element->xml_nodeName_attr =>
-						delete $init_arg_names{$key}
-			}
-			push @rv, $key => delete $init_args{$key};
+			$expect = \&as_listref;
 		}
+		push @rv, eval {
+			( ( ( $element->has_xml_nodeName_attr and
+				      exists $init_arg_names{$key} )
+				    ? ( $element->xml_nodeName_attr =>
+						$expect->($init_arg_names{$key})) : ()
+					       ),
+			  $key => $expect->(delete $init_args{$key}),
+			 );
+		} or $context->exception(
+			"internal error: processing '$key' attribute: $@",
+		       );
 	}
 	if (my @leftovers = keys %init_args) {
 		$context->exception(
@@ -243,9 +284,7 @@ method marshall_in_element( XML::LibXML::Node $node, PRANG::Graph::Context $ctx 
 
 method add_xml_attr( Object $item, XML::LibXML::Element $node, PRANG::Graph::Context $ctx ) {
 	my $attributes = $self->xml_attr;
-	my $node_prefix = $node->prefix||"";
 	while ( my ($xmlns, $att) = each %$attributes ) {
-		my $prefix;
 		while ( my ($attName, $meta_att) = each %$att ) {
 			my $is_optional;
 			my $obj_att_name = $meta_att->name;
@@ -260,27 +299,82 @@ method add_xml_attr( Object $item, XML::LibXML::Element $node, PRANG::Graph::Con
 			# here, but I consider that to break
 			# encapsulation
 			my $value = $item->$obj_att_name;
+			my $xml_att_name = $attName;
+			if ( $meta_att->has_xml_name ) {
+				my $method = $meta_att->has_xmlns_attr;
+				$xml_att_name = $attName;
+			}
+			if ( $meta_att->has_xmlns_attr ) {
+				my $method = $meta_att->xmlns_attr;
+				$xmlns = $item->$method;
+			}
 			if ( !defined $value ) {
 				die "could not serialize $item; slot "
 					.$meta_att->name." empty"
 						unless $is_optional;
+				next;
 			}
-			else {
-				if ( !defined $prefix ) {
+
+			my $emit_att = sub {
+				my ($xmlns, $name, $value) = @_;
+				my $prefix;
+				if ( $xmlns ) {
 					$prefix = $ctx->get_prefix(
 						$xmlns, $item, $node,
-					       );
-					if ( $prefix eq $node_prefix ) {
-						$prefix = "";
-					}
-					elsif ( $prefix ne "" ) {
-						$prefix .= ":";
-					}
+					       ) . ":";
+				}
+				else {
+					$prefix = "";
 				}
 				$node->setAttribute(
-					$prefix.$attName,
-					$value,
+					$prefix.$name, $value,
 				       );
+			};
+
+			my $do_array = sub {
+				my $att_name = shift;
+				my $array = shift;
+				my $xmlns = shift;
+				for ( my $i = 0; $i <= $#$array; $i++ ) {
+					$emit_att->(
+						$xmlns&&$xmlns->[$i],
+						$att_name,
+						$array->[$i],
+					       );
+				}
+			};
+
+			if ( ref $value eq "HASH" ) {
+				# wildcarded attribute name case
+				while ( my ($att, $val) = each %$value ) {
+					my $att_xmlns;
+					if ( $xmlns ) {
+						$att_xmlns = $xmlns->{$att};
+					}
+					# now, we can *still* have arrays here..
+					if ( ref $val eq "ARRAY" ) {
+						$do_array->(
+							$att, $val,
+							$att_xmlns,
+						       );
+					}
+					else {
+						$emit_att->(
+							$att_xmlns,
+							$att, $val,
+						       );
+					}
+				}
+			}
+			elsif ( ref $value eq "ARRAY" ) {
+				$do_array->(
+					$xml_att_name,
+					$value,
+					$xmlns,
+				       );
+			}
+			else {
+				$emit_att->( $xmlns, $xml_att_name, $value );
 			}
 		}
 	}

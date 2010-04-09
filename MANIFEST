@@ -9,6 +9,7 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/PRANG.pm
+lib/PRANG/Changes.pod
 lib/PRANG/Cookbook.pm
 lib/PRANG/Cookbook/Book.pm
 lib/PRANG/Cookbook/Date.pm
@@ -72,6 +73,12 @@ t/xml/invalid/02-nesting.xml
 t/xml/invalid/03-deep-error.bug
 t/xml/invalid/04-deep-error-2.xml
 t/xml/invalid/05-choice-multiple.xml
+t/xml/invalid/06-mixedxml-bad1.xml
+t/xml/invalid/07-mixedxml-bad2.xml
+t/xml/invalid/08-xmlns.xml
+t/xml/invalid/09-xmlns-attr.xml
+t/xml/invalid/12-nodename-wildcard.xml
+t/xml/invalid/13-xmlns-distinguish.xml
 t/xml/valid/01-first.xml
 t/xml/valid/02-bool.xml
 t/xml/valid/03-nesting.xml
@@ -79,6 +86,12 @@ t/xml/valid/04-attribute.xml
 t/xml/valid/05-alternations.xml
 t/xml/valid/06-choice.xml
 t/xml/valid/07-array.xml
+t/xml/valid/08-mixedxml.xml
+t/xml/valid/09-xmlns.xml
+t/xml/valid/10-xmlns-attr.xml
+t/xml/valid/11-attr-wildcard.xml
+t/xml/valid/12-nodename-wildcard.xml
+t/xml/valid/13-xmlns-distinguish.xml
 t/XMLTests.pm
 t/yaml/01-simplest.yaml
 t/yaml/02-moar.yaml

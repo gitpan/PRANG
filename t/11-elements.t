@@ -10,18 +10,18 @@ use t::Octothorpe;
 
 my $parser = XML::LibXML->new;
 my $doc = $parser->parse_string(<<XML);
-<tests>
+<tests xmlns:A="uri:type:A">
   <ok>
     <Octothorpe><colon/></Octothorpe>
     <Octothorpe><emdash/><colon></colon></Octothorpe>
     <Octothorpe><colon>Larry Gets the colon</colon></Octothorpe>
-    <Ampersand><apostrophe/></Ampersand>
+    <Ampersand/>
     <Ampersand>
         <interpunct>2</interpunct>
-        <apostrophe><colon/></apostrophe>
     </Ampersand>
     <Caret><braces>2</braces></Caret>
     <Caret><parens></parens></Caret>
+    <Octothorpe><colon/><A:section_mark/></Octothorpe>
   </ok>
   <fail>
     <Octothorpe desc="missing a required element" error="Node incomplete; expecting: .colon">
@@ -33,7 +33,7 @@ my $doc = $parser->parse_string(<<XML);
       <emdash foo="bar"><colon>x</colon></emdash>
     </Octothorpe>
     <Ampersand desc="bad value for Int xml data element" error="Attribute .interpunct. does not pass the type constraint">
-      <interpunct>two</interpunct><apostrophe><colon /></apostrophe>
+      <interpunct>two</interpunct>
     </Ampersand>
     <Ampersand desc="attribute passed on xml data element" error="Superfluous attributes on XML data node">
       <interpunct lang="en">2</interpunct>
@@ -61,6 +61,11 @@ XML
 }
 
 my $test_num = 1;
+my $xsi = {
+	"" => "",
+	map { $_->declaredPrefix => $_->declaredURI }
+		$doc->documentElement->attributes,
+};
 
 for my $oktest ( $doc->findnodes("//ok/*") ) {
 	next unless $oktest->isa("XML::LibXML::Element");
@@ -68,7 +73,7 @@ for my $oktest ( $doc->findnodes("//ok/*") ) {
 	my $class = $oktest->localname;
 	my $context = PRANG::Graph::Context->new(
 		xpath => "//ok/$class\[position()=$test_num]",
-		xsi => { "" => "" },
+		xsi => $xsi,
 		base => (bless{},"Dummy::Marshaller"),
 		#base => PRANG::Marshaller->get($class),
 		prefix => "",
@@ -104,7 +109,8 @@ for my $oktest ( $doc->findnodes("//ok/*") ) {
 		   #diag("expected: ".$oktest->toString);
 		   #diag("got: ".$node->toString);
 	   #};
-	#$test_num++;
+
+	$test_num++;
 }
 
 $test_num = 1;

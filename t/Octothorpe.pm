@@ -28,6 +28,19 @@ has_element "pipe" =>
 	xml_required => 0,
 	;
 
+has_element "section_mark" =>
+	is => "ro",
+	isa => "SectionMark",
+	xml_required => 0,
+	xmlns => "uri:type:A",
+	;
+
+has_element "curly_brackets" =>
+	is => "ro",
+	isa => "CurlyBrackets",
+	xml_required => 0,
+	;
+
 with "PRANG::Graph", "PRANG::Graph::Class";
 
 package Ampersand;
@@ -108,19 +121,132 @@ has_element "asterism" =>
 	},
 	;
 
+# test attribute name wildcarding
+has_attr "currency" =>
+	is => "ro",
+	isa => "HashRef[Str]",
+	xml_name => "*",
+	;
+
+# test attribute namespace wildcarding
+has_attr "period" =>
+	is => "ro",
+	isa => "ArrayRef[Str]",
+	xmlns => "*",
+	xmlns_attr => "period_ns",
+	;
+
+has "period_ns" => is => "ro";
+
 package Fingernails;
 use Moose;
 sub xmlns {}
 use PRANG::Graph;
-#    Seq -> Element
+#    Class tests: Seq -> Element
+
+# test attribute xmlns wildcarding
 has_attr "currency" =>
 	is => "ro",
 	isa => "Str",
 	xml_name => "dollar_sign",
 	;
+has 'currency_ns' =>
+	is => "ro",
+	;
+
 has_element "fishhooks" =>
 	is => "ro",
 	isa => "Deaeresis",
+	;
+
+with "PRANG::Graph::Class";
+
+package SectionMark;
+
+use Moose;
+use PRANG::Graph;
+sub xmlns {}
+
+# This class tests:
+#     Seq -> Quant -> Choice -> Element
+#      \                   `--> Element
+#       \                  `--> Text
+#        `-> Quant -> Choice -> Element
+#                          `--> Element
+
+# test mixed XML
+has_element "double_angle_quotes" =>
+	is => "ro",
+	isa => "ArrayRef[Ampersand|Str|SectionMark]",
+	xml_nodeName => {
+		"" => "Str",
+		"interrobang" => "Ampersand",
+                "section_mark" => "SectionMark",
+	},
+	;
+
+# test the "more element names than types" case - extra attribute
+# required to record the node name.
+has_element "percent_sign" =>
+	is => "ro",
+	isa => "Ampersand",
+	xml_required => 0,
+	xml_nodeName => {
+		"degree" => "Ampersand",
+		"period" => "Ampersand",
+	},
+	xml_nodeName_attr => "percent_sign_type",
+	;
+
+has "percent_sign_type" =>
+	is => "ro",
+	;
+
+# test the "more types than element names" case in the docs (no extra
+# attributes required, but namespaces vital)
+has_element "broken_bar" =>
+	is => "ro",
+	isa => "Ampersand|Caret",
+	xml_required => 0,
+	xml_nodeName => {
+		"trumpery:broken_bar" => "Ampersand",
+		"rubble:broken_bar" => "Caret",
+	},
+	xml_nodeName_prefix => {
+		"trumpery" => "uri:type:A",
+		"rubble" => "uri:type:B",
+	},
+	;
+
+has_attr "suspension_points" =>
+	is => "ro",
+	isa => "Str",
+	xmlns => "uri:type:C",
+	xml_required => 0,
+	;
+
+with "PRANG::Graph::Class";
+
+package CurlyBrackets;
+
+use Moose;
+use PRANG::Graph;
+sub xmlns {}
+
+# test the "more element names than types" case - extra attribute
+# required to record the node name.  This one should always go at
+# the end of the class as it will happily eat all following elements
+# (also should be kept in mind when trying to write invalid tests)
+has_element "square_brackets" =>
+	is => "ro",
+	isa => "ArrayRef[Ampersand]",
+	xml_required => 0,
+	xml_nodeName => "*",
+	xml_nodeName_attr => "square_brackets_type",
+	;
+
+has "square_brackets_type" =>
+	is => "ro",
 	;
 
 with "PRANG::Graph::Class";

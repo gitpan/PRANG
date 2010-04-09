@@ -21,6 +21,12 @@ has 'xml_required' =>
 	predicate => "has_xml_required",
 	;
 
+has 'xmlns_attr' =>
+	is => "rw",
+	isa => "Str",
+	predicate => "has_xmlns_attr",
+	;
+
 package Moose::Meta::Attribute::Custom::Trait::PRANG::Attr;
 sub register_implementation {
 	"PRANG::Graph::Meta::Attr";
@@ -63,11 +69,19 @@ But L<PRANG::Graph> exports a convenient shorthand for you to use.
 If you like, you can also set the C<xmlns> and C<xml_name> attribute
 property, to override the default behaviour, which is to assume that
 the XML attribute name matches the Moose attribute name, and that the
-XML namespace of the attribute matches that of the class in which it
-is defined.
+XML namespace of the attribute is empty.  Note if you specify the
+C<xmlns> for an attribute, it I<must> have that namespace set, or it
+is not the same attribute.
 
 If you set the C<xml_required> property, then it is an error for the
 property not to be set when parsing or emitting.
+
+Setting the C<xmlns> attribute to C<*> will allow any XML namespace to
+be set for that attribute.  In this case, you should also set the
+C<xmlns_attr> property, which should refer to another attribute which
+will record which XML namespace URI was passed in.  This introduces a
+potential ambiguity; the same attribute may be passed in multiple
+times, with different XML namespaces.
 
 =head1 SEE ALSO
 

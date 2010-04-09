@@ -6,6 +6,7 @@ build_requires:
   ExtUtils::MakeMaker: 6.42
   Scriptalicious: 0
   XML::Compare: 0.02
+  YAML: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
@@ -17,7 +18,6 @@ meta-spec:
 name: PRANG
 no_index:
   directory:
-    - doc
     - inc
     - t
 requires:
@@ -28,4 +28,4 @@ requires:
   perl: 5.01
 resources:
   license: http://opensource.org/licenses/artistic-license.php
-version: 0.03
+version: 0.04
