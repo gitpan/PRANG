@@ -41,13 +41,28 @@ has_element "curly_brackets" =>
 	xml_required => 0,
 	;
 
-with "PRANG::Graph", "PRANG::Graph::Class";
+has_element "question_mark" =>
+	is => "ro",
+	isa => "PRANG::XMLSchema::Whatever",
+	xml_required => 0,
+	;
+
+has_element "number_sign" =>
+	is => "ro",
+	isa => "InvertedQuestionMark",
+	xml_required => 0,
+	;
+
+with "PRANG::Graph";
+
+package InvertedQuestionMark;
+use Moose::Role;
+with 'PRANG::Graph';
+sub xmlns {}
 
 package Ampersand;
 use Moose;
-sub xmlns {}
 use PRANG::Graph;
-with "PRANG::Graph::Class";
 # class tests: Quant -> Element
 has_element "interpunct" =>
 	is => "ro",
@@ -55,11 +70,12 @@ has_element "interpunct" =>
 	predicate => "has_interpunct",
 	;
 
+sub root_element { "ampersand" }
+with 'InvertedQuestionMark';
+
 package Caret;
 use Moose;
-sub xmlns {}
 use PRANG::Graph;
-with "PRANG::Graph::Class";
 # class tests:
 #    Choice -> Element
 #    Choice -> Element -> Text
@@ -72,11 +88,12 @@ has_element "solidus" =>
 	},
 	;
 
+sub root_element { "caret" }
+with 'InvertedQuestionMark';
+
 package Asteriks;
 use Moose;
-sub xmlns {}
 use PRANG::Graph;
-with "PRANG::Graph::Class";
 # class tests:
 #    Quant -> Choice -> Element
 #    Quant -> Choice -> Text
@@ -92,9 +109,7 @@ has_element "bullet" =>
 
 package Pilcrow;
 use Moose;
-sub xmlns {}
 use PRANG::Graph;
-with "PRANG::Graph::Class";
 
 #    Quant -> Element
 has_element "backslash" =>
@@ -105,9 +120,7 @@ has_element "backslash" =>
 
 package Deaeresis;
 use Moose;
-sub xmlns {}
 use PRANG::Graph;
-with "PRANG::Graph::Class";
 
 #    Quant -> Choice with type/nodeName mapping
 has_element "asterism" =>
@@ -140,7 +153,6 @@ has "period_ns" => is => "ro";
 
 package Fingernails;
 use Moose;
-sub xmlns {}
 use PRANG::Graph;
 #    Class tests: Seq -> Element
 
@@ -159,13 +171,10 @@ has_element "fishhooks" =>
 	isa => "Deaeresis",
 	;
 
-with "PRANG::Graph::Class";
-
 package SectionMark;
 
 use Moose;
 use PRANG::Graph;
-sub xmlns {}
 
 # This class tests:
 #     Seq -> Quant -> Choice -> Element
@@ -218,6 +227,25 @@ has_element "broken_bar" =>
 	},
 	;
 
+has_element "prime" =>
+	is => "ro",
+	isa => "Ampersand",
+	xml_required => 0,
+	xml_nodeName => {
+		"trumpery:single_quotes" => "Ampersand",
+		"rubble:single_quotes" => "Ampersand",
+	},
+	xml_nodeName_prefix => {
+		"trumpery" => "uri:type:A",
+		"rubble" => "uri:type:B",
+	},
+	xmlns_attr => "prime_ns",
+	;
+
+has "prime_ns" =>
+	is => "ro",
+	;
+
 has_attr "suspension_points" =>
 	is => "ro",
 	isa => "Str",
@@ -225,13 +253,10 @@ has_attr "suspension_points" =>
 	xml_required => 0,
 	;
 
-with "PRANG::Graph::Class";
-
 package CurlyBrackets;
 
 use Moose;
 use PRANG::Graph;
-sub xmlns {}
 
 # test the "more element names than types" case - extra attribute
 # required to record the node name.  This one should always go at
@@ -249,7 +274,7 @@ has "square_brackets_type" =>
 	is => "ro",
 	;
 
-with "PRANG::Graph::Class";
+1;
 
 # Copyright (C) 2009, 2010  NZ Registry Services
 #

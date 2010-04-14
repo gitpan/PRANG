@@ -79,6 +79,8 @@ t/xml/invalid/08-xmlns.xml
 t/xml/invalid/09-xmlns-attr.xml
 t/xml/invalid/12-nodename-wildcard.xml
 t/xml/invalid/13-xmlns-distinguish.xml
+t/xml/invalid/14-xmlns-wildcard.xml
+t/xml/invalid/18-roles.xml
 t/xml/valid/01-first.xml
 t/xml/valid/02-bool.xml
 t/xml/valid/03-nesting.xml
@@ -92,7 +94,14 @@ t/xml/valid/10-xmlns-attr.xml
 t/xml/valid/11-attr-wildcard.xml
 t/xml/valid/12-nodename-wildcard.xml
 t/xml/valid/13-xmlns-distinguish.xml
+t/xml/valid/14-xmlns-wildcard.xml
+t/xml/valid/15-whatever.xml
+t/xml/valid/16-whatever-crazy.xml
+t/xml/valid/17-xmlns-immed.xml
+t/xml/valid/18-roles.xml
 t/XMLTests.pm
 t/yaml/01-simplest.yaml
 t/yaml/02-moar.yaml
 t/yaml/03-moar-moar-moar.yaml
+t/yaml/04-whatever.yaml
+t/yaml/05-whatever-object.yaml

@@ -36,6 +36,12 @@ has 'nodeName_attr' =>
 	predicate => "has_nodeName_attr",
 	;
 
+has 'xmlns_attr' =>
+	is => "rw",
+	isa => "Str",
+	predicate => "has_xmlns_attr",
+	;
+
 has 'attrName' =>
 	is => "ro",
 	isa => "Str",
@@ -50,19 +56,34 @@ has 'contents' =>
 
 method node_ok( XML::LibXML::Node $node, PRANG::Graph::Context $ctx ) {
 	return unless $node->nodeType == XML_ELEMENT_NODE;
-	if ( ($node->prefix||"") ne ($ctx->prefix||"") ) {
-		my $got_xmlns = ($ctx->xsi->{$node->prefix||""}||"");
+	my $got_xmlns;
+
+	if ( $self->has_xmlns or
+		     ($node->prefix||"") ne ($ctx->prefix||"") ) {
+		my $prefix = $node->prefix//"";
+		$got_xmlns = $ctx->xsi->{$prefix};
+		if ( !defined $got_xmlns ) {
+			$got_xmlns = $node->getAttribute("xmlns".(length $prefix?":$prefix":""));
+		}
 		my $wanted_xmlns = ($self->xmlns||"");
-		if ( $wanted_xmlns ne "*" and
+		if ( $got_xmlns and $wanted_xmlns ne "*" and
 			     $got_xmlns ne $wanted_xmlns ) {
 			return;
 		}
 	}
-	# this is bad for processContents=skip + namespace="##other"
-	my $ret_nodeName = $self->nodeName eq "*" ?
-		$node->localname : "";
-	if ( !$ret_nodeName and $node->localname ne $self->nodeName ) {
+	my ($ret_nodeName, $ret_xmlns) = ("", "");
+	my $wanted_nodeName = $self->nodeName;
+	if ( $wanted_nodeName ne "*" and $wanted_nodeName ne $node->localname ) {
 		return;
+	}
+	if ( $self->has_nodeName_attr ) {
+		$ret_nodeName = $node->localname;
+	}
+	if ( $self->has_xmlns_attr ) {
+		$ret_xmlns = $got_xmlns;
+	}
+	if ( wantarray ) {
+		return ($ret_nodeName, $ret_xmlns);
 	}
 	else {
 		return $ret_nodeName;
@@ -70,8 +91,8 @@ method node_ok( XML::LibXML::Node $node, PRANG::Graph::Context $ctx ) {
 }
 
 method accept( XML::LibXML::Node $node, PRANG::Graph::Context $ctx ) {
-	my $ret_nodeName;
-	if ( !defined ($ret_nodeName = $self->node_ok($node, $ctx)) ) {
+	my ($ret_nodeName, $xmlns) = $self->node_ok($node, $ctx);
+	if ( !defined $ret_nodeName ) {
 
 		# ok, not right, so figure out what we did want, in
 		# the context of the incoming document.
@@ -101,7 +122,7 @@ method accept( XML::LibXML::Node $node, PRANG::Graph::Context $ctx ) {
 		       )
 				      : $node );
 		$ctx->element_ok(1);
-		return ($self->attrName => $value, $ret_nodeName);
+		return ($self->attrName => $value, $ret_nodeName, $xmlns);
 	}
 	else {
 		# XML data types
@@ -136,7 +157,7 @@ method accept( XML::LibXML::Node $node, PRANG::Graph::Context $ctx ) {
 				       );
 			}
 			$ctx->element_ok(1);
-			return ($self->attrName => $value, $ret_nodeName);
+			return ($self->attrName => $value, $ret_nodeName, $xmlns);
 		}
 		else {
 			# boolean
@@ -147,7 +168,7 @@ method accept( XML::LibXML::Node $node, PRANG::Graph::Context $ctx ) {
 	       				);
 			}
 			$ctx->element_ok(1);
-			return ($self->attrName => 1, $ret_nodeName);
+			return ($self->attrName => 1, $ret_nodeName, $xmlns);
 		}
 	}
 }
@@ -176,7 +197,7 @@ method expected( PRANG::Graph::Context $ctx ) {
 		.">";
 }
 
-method output ( Object $item, XML::LibXML::Element $node, PRANG::Graph::Context $ctx, Item :$value, Int :$slot, Str :$name ) {
+method output ( Object $item, XML::LibXML::Element $node, PRANG::Graph::Context $ctx, Item :$value, Int :$slot, Str :$name, Str :$xmlns ) {
 	$value //= do {
 		my $accessor = $self->attrName;
 		$item->$accessor;
@@ -193,21 +214,27 @@ method output ( Object $item, XML::LibXML::Element $node, PRANG::Graph::Context 
 			$self->nodeName;
 		}
 	};
+	$xmlns //= do {
+		if ( $self->has_xmlns_attr ) {
+			my $attr = $self->xmlns_attr;
+			$item->$attr;
+		}
+		else {
+			$self->xmlns // "";
+		}
+	};
 	if ( ref $name ) {
 		$name = $name->[$slot];
+	}
+	if ( ref $xmlns ) {
+		$xmlns = $xmlns->[$slot];
 	}
 
 	my $nn;
 	my $doc = $node->ownerDocument;
 	my $newctx;
 	if ( length $name ) {
-		my ($xmlns, $prefix, $new_prefix);
-		if ( $self->has_xmlns ) {
-			$xmlns = $self->xmlns;
-			if ( $xmlns eq "*" ) {
-				$xmlns = $value->xmlns;
-			}
-		}
+		my ($prefix, $new_prefix);
 		$ctx = $ctx->next_ctx( $xmlns, $name, $value );
 		$prefix = $ctx->prefix;
 		my $new_nodeName = ($prefix ? "$prefix:" : "") . $name;
@@ -221,8 +248,14 @@ method output ( Object $item, XML::LibXML::Element $node, PRANG::Graph::Context 
 		$node->appendChild($nn);
 		# now proceed with contents...
 		if ( my $class = $self->nodeClass ) {
-			my $m = $ctx->base->get($class);
+			my $m;
+			if ( eval { $value->isa($class) }) {
+				$m = $ctx->base->get($class);
+			}
 			if ( !$m and blessed $value ) {
+				# this actually indicates a type
+				# error.  currently it is required for
+				# the Whatever mapping.
 				$m = PRANG::Marshaller->get(ref $value);
 			}
 			if ( !$m and $value->isa("XML::LibXML::Element") ) {

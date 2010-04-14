@@ -1,8 +1,7 @@
 
 package PRANG;
-use PRANG::Marshaller;
 
-our $VERSION = "0.04";
+our $VERSION = "0.05";
 
 1;
 
@@ -18,7 +17,6 @@ PRANG - XML graph engine - XML to Moose objects and back!
  package XML::Language::Node;
  use Moose::Role;
  sub xmlns { "http://example.com/language/1.0" }
- with 'PRANG::Graph::Class';
 
  # step 2. define the root node(s) of your language
  package XML::Language;
