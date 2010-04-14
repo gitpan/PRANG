@@ -15,7 +15,7 @@ has 'xml_attr' =>
 		my $self = shift;
 		my @attr = grep { $_->does("PRANG::Graph::Meta::Attr") }
 			$self->get_all_attributes;
-		my $default_xmlns = eval { $self->name->xmlns };
+		my $default_xmlns = ""; #eval { $self->name->xmlns };
 		my %attr_ns;
 		for my $attr ( @attr ) {
 			my $xmlns = $attr->has_xmlns ?
@@ -123,7 +123,8 @@ method accept_attributes( ArrayRef[XML::LibXML::Attr] $node_attr, PRANG::Graph::
 		if ( length $prefix and !exists $context->xsi->{$prefix} ) {
 			$context->exception("unknown xmlns prefix '$prefix'");
 		}
-		my $xmlns = $context->get_xmlns($prefix);
+		my $xmlns = $context->get_xmlns($prefix)
+			if length $prefix;
 		$xmlns //= "";
 		my $meta_att = $attributes->{$xmlns}{$attr->localname};
 		my $xmlns_att_name;
@@ -332,7 +333,10 @@ method add_xml_attr( Object $item, XML::LibXML::Element $node, PRANG::Graph::Con
 				if ( $xmlns ) {
 					$prefix = $ctx->get_prefix(
 						$xmlns, $item, $node,
-					       ) . ":";
+					       );
+					if ( length $prefix ) {
+						$prefix .= ":";
+					}
 				}
 				else {
 					$prefix = "";

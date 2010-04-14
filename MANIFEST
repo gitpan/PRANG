@@ -77,6 +77,7 @@ t/xml/invalid/06-mixedxml-bad1.xml
 t/xml/invalid/07-mixedxml-bad2.xml
 t/xml/invalid/08-xmlns.xml
 t/xml/invalid/09-xmlns-attr.xml
+t/xml/invalid/10-xmlns-attr.xml
 t/xml/invalid/12-nodename-wildcard.xml
 t/xml/invalid/13-xmlns-distinguish.xml
 t/xml/invalid/14-xmlns-wildcard.xml

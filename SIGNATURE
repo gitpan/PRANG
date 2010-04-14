@@ -15,9 +15,9 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 5ebf20e77850b956f9f03833932a7005ba59f0d9 COPYING.txt
-SHA1 2a163fa978750bb28732f357abd67d31b9930886 MANIFEST
+SHA1 0381bd876ba15609fc3c74306021e2eda0fb9b7e MANIFEST
 SHA1 edeadd95d0f068423e2e253b6a59d65084601e5d MANIFEST.SKIP
-SHA1 3de957f1b7c864daeb6e8a80b4551146f4ad72e3 META.yml
+SHA1 95fba5a353f80fbb9b656a055c995fa28741d322 META.yml
 SHA1 5c49fed2e2d13e7ca9792aec3486db9042e80ca6 Makefile.PL
 SHA1 ed28fba1c5fa49d991fa991858a9cef9deb8c007 README
 SHA1 a20c9aaf2608e4a30837859e7b12f03fe5a999b8 SubmittingPatches
@@ -29,8 +29,8 @@ SHA1 0384525d85d51e99532e3ad8729d870113646d14 inc/Module/Install/Makefile.pm
 SHA1 38c657de4d91f5a60ff8e6c6f6a5547daf7c4ab2 inc/Module/Install/Metadata.pm
 SHA1 5c25f1104c0038041e3b93e0660c39171e4caf2b inc/Module/Install/Win32.pm
 SHA1 94d47349c803c4bd2a9230d25e4db0b6aaf1acd8 inc/Module/Install/WriteAll.pm
-SHA1 c118a792e8db08eadcd35c639ecc54313bbd0516 lib/PRANG.pm
-SHA1 d61f96cda1d6e6d039386dd40af2d1e4635612d0 lib/PRANG/Changes.pod
+SHA1 35f0c63f2a8edc28b4e20a3b5472373b7ca25d2f lib/PRANG.pm
+SHA1 adafefcf467c0fbf4fbee10553231013643be1a0 lib/PRANG/Changes.pod
 SHA1 6c724f5d64cb6f39fce158a85a6f9a7819479f04 lib/PRANG/Cookbook.pm
 SHA1 b5825e10a239e55fdc42ba21d0fffa07095dc6d2 lib/PRANG/Cookbook/Book.pm
 SHA1 63c49f801647261addc8bac902ee2c6929f075cf lib/PRANG/Cookbook/Date.pm
@@ -42,13 +42,13 @@ SHA1 0e086baa7651ce3be3f188d288919b3b35f5df14 lib/PRANG/Cookbook/Note.pm
 SHA1 9a592323534c3e2549d2899dcce6dc5e42d6f556 lib/PRANG/Cookbook/Role/Date.pm
 SHA1 1b8538639c61d5b4e5aa80af92e815ff5381e535 lib/PRANG/Cookbook/Role/Location.pm
 SHA1 5d764d0498a48eaf14541ba4d564920b7135062f lib/PRANG/Cookbook/Role/Time.pm
-SHA1 66cfe5605edceb7b2258d34ca5ec77a99370e3de lib/PRANG/Graph.pm
+SHA1 1d5c640025b1f9cef6df965db475974361b8070e lib/PRANG/Graph.pm
 SHA1 d95f5bfc42e555d11d38474239e4f61494059af9 lib/PRANG/Graph/Choice.pm
 SHA1 0e14e4f36f4719ffa40ea7fd70425a4d41a9cf06 lib/PRANG/Graph/Class.pm
 SHA1 72cf181299243fd35f839ae8650e9332efdb803c lib/PRANG/Graph/Context.pm
 SHA1 da42893cde8b3ff575d39698d71889c06df60d5d lib/PRANG/Graph/Element.pm
 SHA1 4d8d97aefb19ad9d7bdf7556ae01f5de4cbede1b lib/PRANG/Graph/Meta/Attr.pm
-SHA1 3baa585f9fe0419f597fc6c982b477db4685b348 lib/PRANG/Graph/Meta/Class.pm
+SHA1 61cb66784ca7482afbb0eac94cdbdc1fb7ccdcaf lib/PRANG/Graph/Meta/Class.pm
 SHA1 a0e854e43e3574730a685af077f7cd7751a32ed1 lib/PRANG/Graph/Meta/Element.pm
 SHA1 3ca13ef301ca0eaf898189460d372b1bc9d03f94 lib/PRANG/Graph/Node.pm
 SHA1 2839d2ef56808b628d5884ff19b6c22d73a0f5a2 lib/PRANG/Graph/Quantity.pm
@@ -57,7 +57,7 @@ SHA1 e5c6cbd060ef8fdfd1c47a6601b8385c570ea9aa lib/PRANG/Graph/Text.pm
 SHA1 a4163befee9efe50a094f565a87ea095b1763820 lib/PRANG/Marshaller.pm
 SHA1 65d555454b10e5214e046675eff740e6e03d3fb8 lib/PRANG/Util.pm
 SHA1 f16c19e03f490dd05e22a8b1a78def36d92b9fdb lib/PRANG/XMLSchema/Types.pm
-SHA1 955e7e8c240e94c41edd7c924a70b0df18b08bb3 lib/PRANG/XMLSchema/Whatever.pm
+SHA1 0d90c522bfc4f66a03f1102a4c42f8f717b635cf lib/PRANG/XMLSchema/Whatever.pm
 SHA1 5af8c8b4c3e9dff0d65487df64847215946d4081 lib/PRANG/XMLSchema/simple.xml
 SHA1 ecb02059c53c45ed22954a32eb4187331fdef9e9 lib/PRANG/XMLSchema/simple.xsd
 SHA1 615740b17f73529a0eaa8ad6f66495032f12129f lib/PRANG/XMLSchema/simple2.xml
@@ -81,7 +81,7 @@ SHA1 3fb7608b4e2b9c8a81fc3cd89990232f4da49b40 t/Cookbook/04-with-sent.xml
 SHA1 52e786d45eeada14480bd0c37011c9fb08566d00 t/Cookbook/05-with-location.xml
 SHA1 c82f0b591eb882832c8176887b26b49e2ab5cecf t/Cookbook/10-books.xml
 SHA1 37c32503ee2ab3af57bd143ad9563fa4ae0b6efd t/Cookbook/11-multiple-authors.xml
-SHA1 907f5a6283d3842e1a951b258ef40849471b1814 t/Octothorpe.pm
+SHA1 3b0d74da79ef4859599de4100f687161891a534d t/Octothorpe.pm
 SHA1 14958c2f5ecb11683b28e08eea718d1a7b41eb78 t/XMLTests.pm
 SHA1 679defa2d83bba4effb7771a35aa4f0353ee3106 t/xml/invalid/01-missing-required.xml
 SHA1 876c752cffb587a6f2675cfd4d0d1de5d987fc38 t/xml/invalid/02-nesting.xml
@@ -92,6 +92,7 @@ SHA1 725e849a4469e74767931d5353e8c14ffda9fc2d t/xml/invalid/06-mixedxml-bad1.xml
 SHA1 5c0bc74a0c8007be7349ca08e47ebd2429d29bcf t/xml/invalid/07-mixedxml-bad2.xml
 SHA1 f35201b6bec4ee509261ad6050c9def96b1a999c t/xml/invalid/08-xmlns.xml
 SHA1 3f2f23c06cd8403b9ae213c42fbf2c8d24463206 t/xml/invalid/09-xmlns-attr.xml
+SHA1 969166e3b1f6381bf6ef33ac7350d86f353786f0 t/xml/invalid/10-xmlns-attr.xml
 SHA1 a729a038edd61f103b2650b41b48293be43afd8c t/xml/invalid/12-nodename-wildcard.xml
 SHA1 c9b8cc65a7fbc5e011f2f7e6087d0d6a0b121294 t/xml/invalid/13-xmlns-distinguish.xml
 SHA1 68d228d7200ede6ce9c5692f2eb9e7fcd97f1030 t/xml/invalid/14-xmlns-wildcard.xml
@@ -122,7 +123,7 @@ SHA1 22030a71d80a44dee597af1c904d0c9e91dfb1d9 t/yaml/05-whatever-object.yaml
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (GNU/Linux)
 
-iEYEARECAAYFAkvFEyUACgkQ/AZAiGayWEMJxQCgjcUJX9oZDh1RkH0kTxX/s4Jw
-0uoAoMs0ww5pJEts10RNtOORRz9m0lqp
-=kE5S
+iEYEARECAAYFAkvFZOIACgkQ/AZAiGayWEOOBgCfReq5jnLckRJCtZvwMOUdcmxz
+w9gAoKpscvZkzpqD8nhHBl7BCTuvaLlO
+=GwvI
 -----END PGP SIGNATURE-----
