@@ -35,6 +35,7 @@ lib/PRANG/Graph/Seq.pm
 lib/PRANG/Graph/Text.pm
 lib/PRANG/Marshaller.pm
 lib/PRANG/Util.pm
+lib/PRANG/XMLSchema/Guide.pod
 lib/PRANG/XMLSchema/simple.xml
 lib/PRANG/XMLSchema/simple.xsd
 lib/PRANG/XMLSchema/simple2.xml

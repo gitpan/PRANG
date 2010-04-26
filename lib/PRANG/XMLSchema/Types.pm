@@ -14,6 +14,16 @@ subtype "PRANG::XMLSchema::token"
 		!m{[\t\r\n]|^\s|\s$|\s\s};
 	};
 
+# automatically trim tokens if passed them.
+coerce "PRANG::XMLSchema::token"
+	=> from "Str",
+	=> via {
+		my ($x) = m/\A\s*(.*?)\s*\Z/;
+		$x =~ s{\s+}{ }g;
+		$x;
+	},
+	;
+
 # See https://rt.cpan.org/Ticket/Display.html?id=52309
 # use Regexp::Common qw/URI/;
 subtype "PRANG::XMLSchema::anyURI"
@@ -33,6 +43,8 @@ subtype "PRANG::XMLSchema::dateTime"
 	=> as "Str"
 	=> where {
 		# from the XMLSchema spec... it'll do for now ;)
+		# how on earth is one supposed to encode Pacific/Guam
+		# or Pacific/Saipan dates before 1845 with this regex?
 		m{
 -?([1-9][0-9]{3,}|0[0-9]{3})
 -(0[1-9]|1[0-2])
