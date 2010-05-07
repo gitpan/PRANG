@@ -15,22 +15,26 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 5ebf20e77850b956f9f03833932a7005ba59f0d9 COPYING.txt
-SHA1 4d69925b0f640e27ae4d78caa9e4d8565e9d0f57 MANIFEST
+SHA1 bab4ff72c07f8c7b5518d038f990e9ae7a36b2ae MANIFEST
 SHA1 edeadd95d0f068423e2e253b6a59d65084601e5d MANIFEST.SKIP
-SHA1 9b79c90aaebe6f2a8aeaebb634a14bbc54b677f2 META.yml
-SHA1 5c49fed2e2d13e7ca9792aec3486db9042e80ca6 Makefile.PL
+SHA1 55939e577f6b10773102533000dd0e30205c348e META.yml
+SHA1 44cc20aaaa117014a23fd210f63f9f6ce5507242 Makefile.PL
 SHA1 ed28fba1c5fa49d991fa991858a9cef9deb8c007 README
 SHA1 a20c9aaf2608e4a30837859e7b12f03fe5a999b8 SubmittingPatches
 SHA1 1ebec4119486a032a5612a403e8d7b7be973e938 inc/Module/Install.pm
 SHA1 24038af925a69df41972971356ccce885b0fe2ad inc/Module/Install/Base.pm
 SHA1 8f96eddfef548c9328457fbb17a121631cda356b inc/Module/Install/Can.pm
 SHA1 ec29048e48edd9c9c55f9de7b773bd7c904335ad inc/Module/Install/Fetch.pm
+SHA1 01862227830d2547f38275eaee0eb9f5add5a252 inc/Module/Install/Include.pm
 SHA1 0384525d85d51e99532e3ad8729d870113646d14 inc/Module/Install/Makefile.pm
 SHA1 38c657de4d91f5a60ff8e6c6f6a5547daf7c4ab2 inc/Module/Install/Metadata.pm
 SHA1 5c25f1104c0038041e3b93e0660c39171e4caf2b inc/Module/Install/Win32.pm
 SHA1 94d47349c803c4bd2a9230d25e4db0b6aaf1acd8 inc/Module/Install/WriteAll.pm
-SHA1 c45f689579181cf9fcfcb27051e21267cd569939 lib/PRANG.pm
-SHA1 77b8a2a298a29e3d50741a808bd2d2cc082a077d lib/PRANG/Changes.pod
+SHA1 09d56bc90fce37438ffb4d333c65b98005622759 inc/Scriptalicious.pm
+SHA1 eae7a29916aa2bd8c9850edcc4cf580c012263bd inc/XML/Compare.pm
+SHA1 0051dbe41f0d67cdd4e064397ce54a72909c147d inc/YAML.pm
+SHA1 391e9a42fdc973e8da6193f7b35f4816aaaa692a lib/PRANG.pm
+SHA1 892ee4a0cdbc806c733d02dfe842c8689d7ed088 lib/PRANG/Changes.pod
 SHA1 6c724f5d64cb6f39fce158a85a6f9a7819479f04 lib/PRANG/Cookbook.pm
 SHA1 b5825e10a239e55fdc42ba21d0fffa07095dc6d2 lib/PRANG/Cookbook/Book.pm
 SHA1 63c49f801647261addc8bac902ee2c6929f075cf lib/PRANG/Cookbook/Date.pm
@@ -54,10 +58,10 @@ SHA1 3ca13ef301ca0eaf898189460d372b1bc9d03f94 lib/PRANG/Graph/Node.pm
 SHA1 2839d2ef56808b628d5884ff19b6c22d73a0f5a2 lib/PRANG/Graph/Quantity.pm
 SHA1 aef6e6bbfe033fca779b942670cf9bdba990439d lib/PRANG/Graph/Seq.pm
 SHA1 29ef7fb5bb9a4729bb6e31733af2cb567c542d3e lib/PRANG/Graph/Text.pm
-SHA1 a4163befee9efe50a094f565a87ea095b1763820 lib/PRANG/Marshaller.pm
+SHA1 97cd6c0eeb069e13fcf1609699e3881b099791f6 lib/PRANG/Marshaller.pm
 SHA1 65d555454b10e5214e046675eff740e6e03d3fb8 lib/PRANG/Util.pm
 SHA1 3eead99323d3564c5b5b3545ae6ad0971b952b22 lib/PRANG/XMLSchema/Guide.pod
-SHA1 18c1135bd3aa406532d2e88f554cd082c840ed36 lib/PRANG/XMLSchema/Types.pm
+SHA1 566aadec455f183d44f02bee13ed4e8eb51a7bcf lib/PRANG/XMLSchema/Types.pm
 SHA1 0d90c522bfc4f66a03f1102a4c42f8f717b635cf lib/PRANG/XMLSchema/Whatever.pm
 SHA1 5af8c8b4c3e9dff0d65487df64847215946d4081 lib/PRANG/XMLSchema/simple.xml
 SHA1 ecb02059c53c45ed22954a32eb4187331fdef9e9 lib/PRANG/XMLSchema/simple.xsd
@@ -74,7 +78,6 @@ SHA1 613e21fdae33302a1f0a0a72c76075e73dac39ab t/23-cookbook.t
 SHA1 2cc45db6f9b9e32f0a919910c9b4eede3fa996c9 t/90-pod-syntax.t
 SHA1 cb0d74dec04e880d8283da4f2ecd6665a42f4d9f t/91-pod-coverage.t
 SHA1 618d4dbfcf5f3b78e07335cbcc92071cd6ee954b t/92-license.t
-SHA1 cfa190bc1fabfa9a683b59af717af694bd6b7f27 t/93-perltidy.t
 SHA1 c51e56b7a6906c7c4e00a10a127c28e5193ae6a8 t/Cookbook/01-note.xml
 SHA1 4ab64d0fac05b242f525906fab5ae16590b0f608 t/Cookbook/02-with-body.xml
 SHA1 c940a0659af3a1d9de39f59e00d40f7e564dbfb2 t/Cookbook/03-replied.xml
@@ -124,7 +127,7 @@ SHA1 22030a71d80a44dee597af1c904d0c9e91dfb1d9 t/yaml/05-whatever-object.yaml
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (GNU/Linux)
 
-iEYEARECAAYFAkvVaJkACgkQ/AZAiGayWEPQAwCgrc1OH8m+2WFz2HKAiX0fF5Ki
-noIAn2f+yz30Jpn5IWVh6M58EUDo8gzP
-=+gR7
+iEYEARECAAYFAkvjeM0ACgkQ/AZAiGayWEOjlACdG+sb0+kwNWSveMgRWkdHkyTM
+mxIAn1AXg+YrPkHreU2xPAw/lWnMgsC5
+=d7oF
 -----END PGP SIGNATURE-----

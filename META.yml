@@ -4,7 +4,7 @@ author:
   - 'Catalyst SRS Team <team-srs@catalyst.net.nz>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
-  Scriptalicious: 0
+  Scriptalicious: 1.16
   XML::Compare: 0.02
   YAML: 0
 configure_requires:
@@ -28,4 +28,4 @@ requires:
   perl: 5.01
 resources:
   license: http://opensource.org/licenses/artistic-license.php
-version: 0.07
+version: 0.08
