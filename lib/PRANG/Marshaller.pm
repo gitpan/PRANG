@@ -7,6 +7,7 @@ use Moose::Util::TypeConstraints;
 
 use XML::LibXML 1.65;
 use PRANG::Util qw(types_of);
+use Carp;
 
 BEGIN {
 	class_type 'Moose::Meta::Class';
@@ -60,9 +61,15 @@ method get($inv: Str $class) {
 	}
 }
 
-method parse( Str $xml ) {
+method parse( Str :$xml, Str :$filename, GlobRef :$fh ) {
 
-	my $dom = XML::LibXML->new->parse_string($xml);
+	my $parser = XML::LibXML->new;
+	my $dom = (
+		defined $xml ? $parser->parse_string($xml) :
+		defined $filename ? $parser->parse_file($filename) :
+		defined $fh ? $parser->parse_fh($fh) :
+			croak("no input passed to parse")
+	       );
 
 	my $rootNode = $dom->documentElement;
 	my $rootNodeNS = $rootNode->namespaceURI;
@@ -204,9 +211,9 @@ method to_xml_doc( PRANG::Graph $item ) {
 	$doc;
 }
 
-method to_xml( PRANG::Graph $item ) {
+method to_xml( PRANG::Graph $item, Int $format = 0 ) {
 	my $document = $self->to_xml_doc($item);
-	$document->toString;
+	$document->toString($format);
 }
 
 1;

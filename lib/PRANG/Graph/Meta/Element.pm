@@ -92,7 +92,8 @@ method build_graph_node() {
 	if ( $self->has_xml_required ) {
 		$expect_one = $self->xml_required;
 	}
-	elsif ( $self->has_predicate ) {
+	elsif ( $self->has_predicate or
+			$self->has_xml_min and !$self->xml_min ) {
 		$expect_one = 0;
 	}
 	else {
@@ -123,6 +124,13 @@ method build_graph_node() {
 
 		$t_c = $t_c->type_parameter;
 	}
+	elsif ( $self->has_xml_max and $self->xml_max > 1 or
+			$self->has_xml_min and $self->xml_min > 1
+	       ) {
+		$self->error(
+	"min/max specified as >1, but type constraint is not an ArrayRef",
+		       );
+	}
 
 	# ok.  now let's walk the type constraint tree, and look for
 	# types
@@ -139,7 +147,7 @@ method build_graph_node() {
 			push @st, @{ $x->parents };
 		}
 		elsif ( $x->isa("Moose::Meta::TypeConstraint::Enum") ) {
-			$expect_simple = 1;
+			push @st, $x->parent;
 		}
 		elsif ( $x->isa("Moose::Meta::TypeConstraint::Role") ) {
 			# likely to be a wildcard.
@@ -538,7 +546,7 @@ PRANG::Graph::Meta::Element - metaclass metarole for XML elements
  # equivalent alternative - plays well with others!
  has 'somechild' =>
     is => "rw",
-    traits => [qr/PRANG::Element/],
+    traits => [qw/PRANG::Element/],
     isa => "Some::Type",
     xml_required => 0,
     ;

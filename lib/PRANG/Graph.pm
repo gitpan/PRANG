@@ -55,13 +55,23 @@ method marshaller($inv:) { #returns PRANG::Marshaller {
 }
 
 method parse($class: Str $xml) {
-	my $instance = $class->marshaller->parse($xml);
+	my $instance = $class->marshaller->parse( xml => $xml );
 	return $instance;
 }
 
-method to_xml() {
+method parse_file($class: Str $filename) {
+	my $instance = $class->marshaller->parse( filename => $filename );
+	return $instance;
+}
+
+method parse_fh($class: GlobRef $fh) {
+	my $instance = $class->marshaller->parse( fh => $fh );
+	return $instance;
+}
+
+method to_xml(Int $format = 0) {
 	my $marshaller = $self->marshaller;
-	$marshaller->to_xml($self);
+	$marshaller->to_xml( $self, $format );
 }
 
 1;
@@ -104,6 +114,10 @@ PRANG::Graph - XML mapping by peppering Moose attributes
 
  # loading XML to data structures
  my $parsed = My::XML::Language->parse($xml);
+
+ # alternatives
+ $parsed = My::XML::Language->parse_file($filename);
+ $parsed = My::XML::Language->parse_fh($fh);
 
  # converting back to XML
  print $parsed->to_xml;
@@ -250,10 +264,13 @@ By example, this is:
 
  my $object = $class->parse($xml);
 
-=head2 B<to_xml(PRANG::Graph $object:) returns Str>
+=head2 B<to_xml(PRANG::Graph $object: Int $format = 0) returns Str>
 
 Converts an object to an XML string.  The returned XML will include
 the XML declaration and so on.
+Output will be indented by LibXML2 if the C<format> parameter is set
+to 1.  The default is 0 (do not indent).  See
+L<XML::LibXML::Document/toString> for other valid values.
 
 By example, this is:
 

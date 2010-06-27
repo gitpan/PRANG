@@ -1,5 +1,4 @@
 COPYING.txt
-doc/Changes.pod
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
@@ -14,6 +13,7 @@ inc/XML/Compare.pm
 inc/YAML.pm
 lib/PRANG.pm
 lib/PRANG/Changes.pod
+lib/PRANG/Coerce.pm
 lib/PRANG/Cookbook.pm
 lib/PRANG/Cookbook/Book.pm
 lib/PRANG/Cookbook/Date.pm
@@ -61,10 +61,10 @@ t/20-validating.t
 t/21-emitting.t
 t/22-round-tripping.t
 t/23-cookbook.t
+t/24-parse-methods.t
 t/90-pod-syntax.t
 t/91-pod-coverage.t
 t/92-license.t
-t/93-perltidy.t
 t/Cookbook/01-note.xml
 t/Cookbook/02-with-body.xml
 t/Cookbook/03-replied.xml
@@ -87,6 +87,7 @@ t/xml/invalid/12-nodename-wildcard.xml
 t/xml/invalid/13-xmlns-distinguish.xml
 t/xml/invalid/14-xmlns-wildcard.xml
 t/xml/invalid/18-roles.xml
+t/xml/invalid/19-enum.xml
 t/xml/valid/01-first.xml
 t/xml/valid/02-bool.xml
 t/xml/valid/03-nesting.xml
@@ -105,6 +106,7 @@ t/xml/valid/15-whatever.xml
 t/xml/valid/16-whatever-crazy.xml
 t/xml/valid/17-xmlns-immed.xml
 t/xml/valid/18-roles.xml
+t/xml/valid/19-enum.xml
 t/XMLTests.pm
 t/yaml/01-simplest.yaml
 t/yaml/02-moar.yaml

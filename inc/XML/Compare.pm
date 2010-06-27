@@ -48,6 +48,7 @@ has 'namespace_strict' =>
 
 has 'error' =>
     is => "rw",
+    isa => "Str",
     clearer => "_clear_error",
     ;
 
@@ -353,7 +354,7 @@ sub _outit {
 1;
 __END__
 
-#line 472
+#line 473
 
 # Local Variables:
 # mode:cperl
