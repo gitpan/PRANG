@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.55.
+signed via the Module::Signature module, version 0.61.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -17,23 +17,23 @@ Hash: SHA1
 SHA1 5ebf20e77850b956f9f03833932a7005ba59f0d9 COPYING.txt
 SHA1 98a4d4d5afdc951f7a0fc004185d63351c8278c3 MANIFEST
 SHA1 edeadd95d0f068423e2e253b6a59d65084601e5d MANIFEST.SKIP
-SHA1 f29ab90a0b719e926d38f5b55e80c719d0699f5f META.yml
+SHA1 c00238a0868ae484a376157b99720ad409cdc56e META.yml
 SHA1 62ada862b85fd74953c5036aee6e49b73a189a97 Makefile.PL
 SHA1 ed28fba1c5fa49d991fa991858a9cef9deb8c007 README
 SHA1 a20c9aaf2608e4a30837859e7b12f03fe5a999b8 SubmittingPatches
-SHA1 fd5f3c4f0418efee3b9b16cf8c3902e8374909df inc/Module/Install.pm
-SHA1 7cd7c349afdf3f012e475507b1017bdfa796bfbd inc/Module/Install/Base.pm
-SHA1 ba186541bbf6439111f01fc70769cf24d22869bf inc/Module/Install/Can.pm
-SHA1 aaa50eca0d7751db7a4d953fac9bc72c6294e238 inc/Module/Install/Fetch.pm
-SHA1 219da5a95c290312a81477b226f005997d97dcfd inc/Module/Install/Include.pm
-SHA1 3e83972921d54198d1246f7278f08664006cd65d inc/Module/Install/Makefile.pm
-SHA1 12bf1867955480d47d5171a9e9c6a96fabe0b58f inc/Module/Install/Metadata.pm
-SHA1 f7ee667e878bd2faf22ee9358a7b5a2cc8e91ba4 inc/Module/Install/Win32.pm
-SHA1 8ed29d6cf217e0977469575d788599cbfb53a5ca inc/Module/Install/WriteAll.pm
-SHA1 4ded99637de928083e67bf0b4308c6c5d2cc42bb inc/Scriptalicious.pm
-SHA1 719cbf856ed292b9f4dad6e824b61c9e89029110 inc/XML/Compare.pm
-SHA1 9ef7e13f82b01ed2cdf69fd66e97e6db7ce6d6e8 inc/YAML.pm
-SHA1 88d0f6124999afb5c0e8a165463de5ebe05a1d4d lib/PRANG.pm
+SHA1 1ebec4119486a032a5612a403e8d7b7be973e938 inc/Module/Install.pm
+SHA1 24038af925a69df41972971356ccce885b0fe2ad inc/Module/Install/Base.pm
+SHA1 8f96eddfef548c9328457fbb17a121631cda356b inc/Module/Install/Can.pm
+SHA1 ec29048e48edd9c9c55f9de7b773bd7c904335ad inc/Module/Install/Fetch.pm
+SHA1 01862227830d2547f38275eaee0eb9f5add5a252 inc/Module/Install/Include.pm
+SHA1 0384525d85d51e99532e3ad8729d870113646d14 inc/Module/Install/Makefile.pm
+SHA1 38c657de4d91f5a60ff8e6c6f6a5547daf7c4ab2 inc/Module/Install/Metadata.pm
+SHA1 5c25f1104c0038041e3b93e0660c39171e4caf2b inc/Module/Install/Win32.pm
+SHA1 94d47349c803c4bd2a9230d25e4db0b6aaf1acd8 inc/Module/Install/WriteAll.pm
+SHA1 722a7faf6cb5165e416d1edf9d0c60b8cb45ea45 inc/Scriptalicious.pm
+SHA1 eae7a29916aa2bd8c9850edcc4cf580c012263bd inc/XML/Compare.pm
+SHA1 0051dbe41f0d67cdd4e064397ce54a72909c147d inc/YAML.pm
+SHA1 7e8b6777aed05c844d7717cca5601918f02d831f lib/PRANG.pm
 SHA1 0857dc711a73f618103a0d4bd1707592516e4543 lib/PRANG/Changes.pod
 SHA1 cea4de25ac78a0a485463caf27c7db537fe927f7 lib/PRANG/Coerce.pm
 SHA1 0a91f9a55ca6b376fe6dda571f47790d270cf629 lib/PRANG/Cookbook.pm
@@ -53,8 +53,8 @@ SHA1 0e14e4f36f4719ffa40ea7fd70425a4d41a9cf06 lib/PRANG/Graph/Class.pm
 SHA1 72cf181299243fd35f839ae8650e9332efdb803c lib/PRANG/Graph/Context.pm
 SHA1 da42893cde8b3ff575d39698d71889c06df60d5d lib/PRANG/Graph/Element.pm
 SHA1 4d8d97aefb19ad9d7bdf7556ae01f5de4cbede1b lib/PRANG/Graph/Meta/Attr.pm
-SHA1 2050b5a37edfe3d9680cad8f2429eace41585dcf lib/PRANG/Graph/Meta/Class.pm
-SHA1 608800123044fba626c6d2a8c107530462ff9ef1 lib/PRANG/Graph/Meta/Element.pm
+SHA1 9ab00b707fe2d8711107ca3a7ddb7aa6dc97f517 lib/PRANG/Graph/Meta/Class.pm
+SHA1 159dfe53f274326507a3ba968392abe14f724b77 lib/PRANG/Graph/Meta/Element.pm
 SHA1 3ca13ef301ca0eaf898189460d372b1bc9d03f94 lib/PRANG/Graph/Node.pm
 SHA1 2839d2ef56808b628d5884ff19b6c22d73a0f5a2 lib/PRANG/Graph/Quantity.pm
 SHA1 aef6e6bbfe033fca779b942670cf9bdba990439d lib/PRANG/Graph/Seq.pm
@@ -129,9 +129,9 @@ SHA1 498cf41c32d99f6ad305557c5b9fb880c75f50a8 t/yaml/03-moar-moar-moar.yaml
 SHA1 6515284b5964ca85a766123863aff667b29ef5c5 t/yaml/04-whatever.yaml
 SHA1 22030a71d80a44dee597af1c904d0c9e91dfb1d9 t/yaml/05-whatever-object.yaml
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.9 (GNU/Linux)
+Version: GnuPG v1.4.10 (GNU/Linux)
 
-iEYEARECAAYFAkwm2rkACgkQ/AZAiGayWEMYfQCgjGIlFfWYveGSlccqcCcUV9Hf
-y4EAniDw4IPSuu4u/7fQoBzJmvLCPA3T
-=aEP8
+iEYEARECAAYFAkwq3NQACgkQ/AZAiGayWEMD5gCcCMzlH8JkHmUsDmUYv7kiQYDr
+rcEAnjQpKD48MfwJQfWaBaToaTijCGcS
+=k8y9
 -----END PGP SIGNATURE-----
