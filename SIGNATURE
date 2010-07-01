@@ -33,8 +33,8 @@ SHA1 94d47349c803c4bd2a9230d25e4db0b6aaf1acd8 inc/Module/Install/WriteAll.pm
 SHA1 722a7faf6cb5165e416d1edf9d0c60b8cb45ea45 inc/Scriptalicious.pm
 SHA1 eae7a29916aa2bd8c9850edcc4cf580c012263bd inc/XML/Compare.pm
 SHA1 0051dbe41f0d67cdd4e064397ce54a72909c147d inc/YAML.pm
-SHA1 7e8b6777aed05c844d7717cca5601918f02d831f lib/PRANG.pm
-SHA1 0857dc711a73f618103a0d4bd1707592516e4543 lib/PRANG/Changes.pod
+SHA1 1d92b4863e1590d79c047615c7ab4d3374338397 lib/PRANG.pm
+SHA1 dee779ffb2f4a1c1d8b3b28cdf8830a921a15b3a lib/PRANG/Changes.pod
 SHA1 cea4de25ac78a0a485463caf27c7db537fe927f7 lib/PRANG/Coerce.pm
 SHA1 0a91f9a55ca6b376fe6dda571f47790d270cf629 lib/PRANG/Cookbook.pm
 SHA1 b5825e10a239e55fdc42ba21d0fffa07095dc6d2 lib/PRANG/Cookbook/Book.pm
@@ -53,7 +53,7 @@ SHA1 0e14e4f36f4719ffa40ea7fd70425a4d41a9cf06 lib/PRANG/Graph/Class.pm
 SHA1 72cf181299243fd35f839ae8650e9332efdb803c lib/PRANG/Graph/Context.pm
 SHA1 da42893cde8b3ff575d39698d71889c06df60d5d lib/PRANG/Graph/Element.pm
 SHA1 4d8d97aefb19ad9d7bdf7556ae01f5de4cbede1b lib/PRANG/Graph/Meta/Attr.pm
-SHA1 9ab00b707fe2d8711107ca3a7ddb7aa6dc97f517 lib/PRANG/Graph/Meta/Class.pm
+SHA1 5e1cec1df4bc6b170fea66d02b73e351ac53ed1c lib/PRANG/Graph/Meta/Class.pm
 SHA1 159dfe53f274326507a3ba968392abe14f724b77 lib/PRANG/Graph/Meta/Element.pm
 SHA1 3ca13ef301ca0eaf898189460d372b1bc9d03f94 lib/PRANG/Graph/Node.pm
 SHA1 2839d2ef56808b628d5884ff19b6c22d73a0f5a2 lib/PRANG/Graph/Quantity.pm
@@ -131,7 +131,7 @@ SHA1 22030a71d80a44dee597af1c904d0c9e91dfb1d9 t/yaml/05-whatever-object.yaml
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iEYEARECAAYFAkwq3NQACgkQ/AZAiGayWEMD5gCcCMzlH8JkHmUsDmUYv7kiQYDr
-rcEAnjQpKD48MfwJQfWaBaToaTijCGcS
-=k8y9
+iEYEARECAAYFAkwsL6kACgkQ/AZAiGayWEOLggCghH4y5ZCD48sUN+vJikB0zmXD
+K08AnROx+kBoPHVj/9OqgPnpkf6kwj2T
+=wjXe
 -----END PGP SIGNATURE-----
