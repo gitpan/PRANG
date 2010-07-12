@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.61.
+signed via the Module::Signature module, version 0.55.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,26 +15,26 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 5ebf20e77850b956f9f03833932a7005ba59f0d9 COPYING.txt
-SHA1 98a4d4d5afdc951f7a0fc004185d63351c8278c3 MANIFEST
+SHA1 dea6e5a065fce105c72b06ce672df125d3e8975a MANIFEST
 SHA1 edeadd95d0f068423e2e253b6a59d65084601e5d MANIFEST.SKIP
-SHA1 c00238a0868ae484a376157b99720ad409cdc56e META.yml
-SHA1 62ada862b85fd74953c5036aee6e49b73a189a97 Makefile.PL
+SHA1 dd1eef9d78035948521995cab7feddadc4ba5f8d META.yml
+SHA1 9a3e80d3215402f35ed5ea44754cdad58e199893 Makefile.PL
 SHA1 ed28fba1c5fa49d991fa991858a9cef9deb8c007 README
 SHA1 a20c9aaf2608e4a30837859e7b12f03fe5a999b8 SubmittingPatches
-SHA1 1ebec4119486a032a5612a403e8d7b7be973e938 inc/Module/Install.pm
-SHA1 24038af925a69df41972971356ccce885b0fe2ad inc/Module/Install/Base.pm
-SHA1 8f96eddfef548c9328457fbb17a121631cda356b inc/Module/Install/Can.pm
-SHA1 ec29048e48edd9c9c55f9de7b773bd7c904335ad inc/Module/Install/Fetch.pm
-SHA1 01862227830d2547f38275eaee0eb9f5add5a252 inc/Module/Install/Include.pm
-SHA1 0384525d85d51e99532e3ad8729d870113646d14 inc/Module/Install/Makefile.pm
-SHA1 38c657de4d91f5a60ff8e6c6f6a5547daf7c4ab2 inc/Module/Install/Metadata.pm
-SHA1 5c25f1104c0038041e3b93e0660c39171e4caf2b inc/Module/Install/Win32.pm
-SHA1 94d47349c803c4bd2a9230d25e4db0b6aaf1acd8 inc/Module/Install/WriteAll.pm
-SHA1 722a7faf6cb5165e416d1edf9d0c60b8cb45ea45 inc/Scriptalicious.pm
-SHA1 eae7a29916aa2bd8c9850edcc4cf580c012263bd inc/XML/Compare.pm
+SHA1 9ccd5cd71896a08c4452af712ecac132370213bb inc/Module/Install.pm
+SHA1 c49e512ab6caf6bdfd980b42ed0b3d34901a9198 inc/Module/Install/Base.pm
+SHA1 2ce37a94ac7c7a418b99a839e8a5f1e6ef3efad6 inc/Module/Install/Can.pm
+SHA1 8f91ca53c12bb609d12dd2ce6fc63d4581e390a0 inc/Module/Install/Fetch.pm
+SHA1 50e09343884e666bd4c6ed03e58592761ba74516 inc/Module/Install/Include.pm
+SHA1 5cefb891354bdf6259227c56950272194fd58d1b inc/Module/Install/Makefile.pm
+SHA1 692c7572df94e8304ec61cd8d8e306df477fed0c inc/Module/Install/Metadata.pm
+SHA1 e3acd82e8b4cd43ca62dd2119402a66ad54460f0 inc/Module/Install/Win32.pm
+SHA1 49c8e7f52761eb5869618e065bb4b8e52697de36 inc/Module/Install/WriteAll.pm
+SHA1 4ded99637de928083e67bf0b4308c6c5d2cc42bb inc/Scriptalicious.pm
+SHA1 1c7a2813837ec645dc1f07da02c183d280ce54d2 inc/XML/Compare.pm
 SHA1 0051dbe41f0d67cdd4e064397ce54a72909c147d inc/YAML.pm
-SHA1 1d92b4863e1590d79c047615c7ab4d3374338397 lib/PRANG.pm
-SHA1 dee779ffb2f4a1c1d8b3b28cdf8830a921a15b3a lib/PRANG/Changes.pod
+SHA1 8e142cf83d829337cf7831b6d6366b574a68117b lib/PRANG.pm
+SHA1 30d10fd84e47d9cf8380e9349a9239db94be2ecd lib/PRANG/Changes.pod
 SHA1 cea4de25ac78a0a485463caf27c7db537fe927f7 lib/PRANG/Coerce.pm
 SHA1 0a91f9a55ca6b376fe6dda571f47790d270cf629 lib/PRANG/Cookbook.pm
 SHA1 b5825e10a239e55fdc42ba21d0fffa07095dc6d2 lib/PRANG/Cookbook/Book.pm
@@ -129,9 +129,9 @@ SHA1 498cf41c32d99f6ad305557c5b9fb880c75f50a8 t/yaml/03-moar-moar-moar.yaml
 SHA1 6515284b5964ca85a766123863aff667b29ef5c5 t/yaml/04-whatever.yaml
 SHA1 22030a71d80a44dee597af1c904d0c9e91dfb1d9 t/yaml/05-whatever-object.yaml
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.10 (GNU/Linux)
+Version: GnuPG v1.4.9 (GNU/Linux)
 
-iEYEARECAAYFAkwsL6kACgkQ/AZAiGayWEOLggCghH4y5ZCD48sUN+vJikB0zmXD
-K08AnROx+kBoPHVj/9OqgPnpkf6kwj2T
-=wjXe
+iEYEARECAAYFAkw6YKcACgkQ/3UWvL9hnGQYLgCgjlZIq35NjhorbIuQFCmvX8Mc
+RyYAn1reIhpVAuhKzczeos9qbQN0hrkG
+=prKz
 -----END PGP SIGNATURE-----

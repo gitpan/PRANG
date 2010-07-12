@@ -15,7 +15,7 @@ use strict;
 use warnings;
 use Carp qw(croak);
 
-our $VERSION = "1.16";
+our $VERSION = "1.15";
 
 use Getopt::Long;
 use base qw(Exporter);
@@ -25,7 +25,6 @@ BEGIN {
 
     our @EXPORT = qw(say mutter whisper abort moan barf run run_err
 		     capture capture_err getopt $VERBOSE $PROGNAME
-		     $CONFIG
 		     start_timer show_delta show_elapsed getconf
 		     getconf_f sci_unit prompt_for prompt_passwd
 		     prompt_yn prompt_Yn prompt_yN prompt_string
@@ -68,7 +67,6 @@ sub import {
 
 # automatically guess the program name if called for
 (our $PROGNAME = $0) =~ s{.*/}{} unless $PROGNAME;
-our $CONFIG;
 
 BEGIN {
     Getopt::Long::config("bundling", "pass_through");
@@ -199,7 +197,7 @@ sub _load_hires {
     eval "use Time::HiRes qw(gettimeofday tv_interval)";
     *gettimeofday = sub { return time() }
 	unless defined &gettimeofday;
-    *tv_interval = sub { return ${$_[0]}[0] - ${$_[1]}[0] }
+    *tv_interval = sub { return ${$_[0]} - ${$_[1]} }
 	unless defined &tv_interval;
 }
 
@@ -269,90 +267,80 @@ sub capture2 {
     die "capture2 not implemented yet"
 }
 
-our $DATA = join "", <DATA>;  close DATA;
-our ($AUTOLOAD, $l);sub AUTOLOAD{croak"No such function $AUTOLOAD"if
-$l;(undef,my($f,$n))=ll();$n+=1;eval"package ".__PACKAGE__.";\n"
-."# line $n \"$f\"\n$DATA"; $@&&die"Error in autoload: $@";
-$l=1;goto &{$AUTOLOAD};}sub ll{sub{caller()}->();}     "P E A C E";
-__DATA__
+#our $DATA = join "", <DATA>;  close DATA;
+#our ($AUTOLOAD, $l);sub AUTOLOAD{croak"No such function $AUTOLOAD"if
+#$l;(undef,my($f,$n))=ll();$n+=1;eval"package ".__PACKAGE__.";\n"
+#."# line $n \"$f\"\n$DATA"; $@&&die"Error in autoload: $@";
+#$l=1;goto &{$AUTOLOAD};}sub ll{sub{caller()}->();}     "P E A C E";
+#__DATA__
 
 our ($NAME, $SHORT_DESC, $SYNOPSIS, $DESCRIPTION, @options);
 
 #---------------------------------------------------------------------
-#  get the synopsis, etc, from the calling script.
+#  calls Pod::Constants to get the synopsis, etc, from the calling
+#  script.
 #---------------------------------------------------------------------
 sub _get_pod_usage {
-	return if $SYNOPSIS;
-	our $level;
-	open SCR_POD, $0 or warn "failed to open $0 for reading; $!";
-	my $targ;
-	my $in_options;
-	my $name_desc;
-	local($_);
-	while (<SCR_POD>) {
-		if ( !m{^=} and $targ ) {
-			$$targ .= $_;
-		}
-		if ( m{^=encoding (\w+)} ) {
-			binmode SCR_POD, ":$1";
-		}
-		elsif ( m{^=head\w\s+SYNOPSIS\s*$} ) {
-			$targ = \$Scriptalicious::SYNOPSIS;
-		}
-		elsif ( m{^=head\w\s+DESCRIPTION\s*$} ) {
-			$targ = \$Scriptalicious::DESCRIPTION;
-		}
-		elsif ( m{^=head\w\s+NAME\s*$} ) {
-			$targ = \$name_desc;
-		}
-		elsif ( m{^=head\w\s+COMMAND[\- ]LINE OPTIONS\s*$} ) {
-			undef($targ);
-			$in_options = 1;
-		}
-		elsif ( $in_options ) {
-			if ( m{^=over} ) {
-				$level++
-			}
-			elsif ( m{^=item\s+(.*)} ) {
-				next unless $level == 1;
-				my $switches = $1;
-				$switches =~ s{[BCI]<([^>]*)>}{$1}g;
-				my (@switches, $longest);
-				$longest = "";
-				for my $switch
-					($switches =~ m/\G
-							((?:-\w|--\w+))
-							(?:,\s*)?
-						       /gx) {
-					push @switches, $switch;
-					if ( length $switch > length $longest) {
-						$longest = $switch;
-					}
-				}
-				$longest =~ s/^-*//;
-				my $opt_hash = {
-					options => \@switches,
-					description => "",
-				};
-				$targ = \$opt_hash->{description};
-				push @options, $longest, $opt_hash;
-			}
-			elsif ( m{^=back} ) {
-				if ( --$level == 0 ) {
-					undef($in_options);
-				}
-			}
-		}
-	}
-	if ( $name_desc ) {
-		$name_desc =~ m{^(\S+)(?:\s+-\s+(.*))?$};
-		$PROGNAME ||= $1;
-		$SHORT_DESC ||= $2;
-	}
+    return if $SYNOPSIS;
+    (undef, my ($fn, $line)) = sub{caller()}->();
+    eval "# line $line \"$fn\"\npackage main;\n".q{
+        our $level;
+        use Pod::Constants;
+        Pod::Constants::import_from_file($0, -trim => 1,
+            'NAME' => sub {
+	my @m;
+	( @m = m/(\S+) - (.*)/ ) &&
+	    do { $Scriptalicious::PROGNAME = $m[0];
+		 $Scriptalicious::SHORT_DESC = $m[1]; }
+	},
+            'SYNOPSIS' => \$Scriptalicious::SYNOPSIS,
+            'DESCRIPTION' => \$Scriptalicious::DESCRIPTION,
+            'COMMAND LINE OPTIONS' => sub {
+	        &Pod::Constants::add_hook
+		   ('*item' => sub {
+                     return unless $level == 1;
+		     my ($switches, $description) =
+			 m/^(.*?)\n\n(.*)/s;
+                     $switches =~ s{[BCI]<([^>]*)>}{$1}g;
+		     my (@switches, $longest);
+		     $longest = "";
+		     for my $switch
+			 ($switches =~ m/\G
+					 ((?:-\w|--\w+))
+					 (?:,\s*)?
+					 /gx) {
+			     push @switches, $switch;
+			     if ( length $switch > length $longest) {
+				 $longest = $switch;
+			     }
+			 }
+		     $longest =~ s/^-*//;
+		     push @options,
+			 $longest, {
+				    options => \@switches,
+				    description => $description,
+				   };
+                     });
+                &Pod::Constants::add_hook
+                   ("*over" => sub { $level++ });
+                &Pod::Constants::add_hook
+                   ("*back" => sub {
+                       --$level or do {
+                           &Pod::Constants::delete_hook($_)
+                               foreach qw(*over *back *item);
+                       };
+                    });
+            }
+        );
+    };
 
+    if ( $@ ) {
+	$SYNOPSIS = "(error: Pod::Constants failed to load)";
+    } else {
 	foreach ( $SYNOPSIS, $SHORT_DESC, $DESCRIPTION ) {
-	    $_ ||= "(not found in POD)";
+	    $_ ||= "(no text found, no POD given?)";
 	}
+    }
 }
 
 sub short_usage {
@@ -493,10 +481,6 @@ my @time_mul = (["w", 7*86400], ["d", 86400, " "], ["h", 3600, ":"],
 		[ "ms", 0.001 ], [ "us", 1e-6 ], ["ns", 1e-9]);
 sub time_unit {
     my $scalar = shift;
-    my $neg = $scalar < 0;
-    if ($neg) { 
-        $scalar = -$scalar;
-    }
     my $d = (shift) || 4;
     if ($scalar == 0) {
         return "0s";
@@ -534,7 +518,7 @@ sub time_unit {
 	   $rem = $new_rem;
 	}
     }
-    ($neg?"-":"").$rv;
+    $rv;
 }
 
 my %prefixes=(18=>"E",15=>"P",12=>"T",9=>"G",6=>"M",3=>"k",0=>"",
@@ -542,10 +526,6 @@ my %prefixes=(18=>"E",15=>"P",12=>"T",9=>"G",6=>"M",3=>"k",0=>"",
 
 sub sci_unit {
     my $scalar = shift;
-    my $neg = $scalar < 0 ? "-" : "";
-    if ($neg) {
-        $scalar = -$scalar;
-    }
     my $unit = (shift) || "";
     my $d = (shift) || 4;
     my $e = 0;
@@ -557,10 +537,10 @@ sub sci_unit {
     if (exists $prefixes{$e}) {
 	$d -= ceil(log($scalar)/log(10));
 	$d = 0 if $d < 0;
-	my $a = sprintf("%s%.${d}f", $neg, $scalar);
+	my $a = sprintf("%.${d}f", $scalar);
 	return $a.$prefixes{$e}.$unit;
     } else {
-	return sprintf("%s%${d}e", $neg, $scalar).$unit;
+	return sprintf("%${d}e", $scalar).$unit;
     }
 
 }
@@ -573,13 +553,12 @@ sub getconf {
         moan "failed to include YAML; not able to load config";
 	return @_;
     }
-    for my $loc ( $CONFIG,
-		  "$ENV{HOME}/.${PROGNAME}rc",
+    for my $loc ( "$ENV{HOME}/.${PROGNAME}rc",
 		  "/etc/perl/$PROGNAME.conf",
 		  "/etc/$PROGNAME.conf",
 		  "POD"
 		) {
-	next if not defined $loc;
+	
 	eval {
 	    $conf_obj = getconf_f($loc, @_);
 	};
@@ -590,7 +569,6 @@ sub getconf {
 		barf "error processing config file $loc; $@";
 	    }
 	} else {
-	    $CONFIG = $loc;
 	    last;
 	}
     }
