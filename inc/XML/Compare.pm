@@ -7,7 +7,7 @@ package XML::Compare;
 use XML::LibXML;
 use Any::Moose;
 
-our $VERSION = '0.03';
+our $VERSION = '0.02';
 our $VERBOSE = $ENV{XML_COMPARE_VERBOSE} || 0;
 
 my $PARSER = XML::LibXML->new();
@@ -48,7 +48,6 @@ has 'namespace_strict' =>
 
 has 'error' =>
     is => "rw",
-    isa => "Str",
     clearer => "_clear_error",
     ;
 
@@ -299,14 +298,6 @@ sub _are_nodes_same {
 		   !($_->isa("XML::LibXML::Text") && ($_->data =~ /\A\s*\Z/))
 	       } $node2->childNodes();
 
-    # firstly, convert all CData nodes to Text Nodes
-    @nodes1 = _convert_cdata_to_text( @nodes1 );
-    @nodes2 = _convert_cdata_to_text( @nodes2 );
-
-    # append all the consecutive Text nodes
-    @nodes1 = _squash_text_nodes( @nodes1 );
-    @nodes2 = _squash_text_nodes( @nodes2 );
-
     # check that the nodes contain the same number of children
     if ( @nodes1 != @nodes2 ) {
         _die $l, 'different number of child nodes: (%d, %d)', scalar @nodes1, scalar @nodes2;
@@ -328,37 +319,6 @@ sub _are_nodes_same {
 
     _msg($l, '/');
     return 1;
-}
-
-# takes an array of nodes and converts all the CDATASection nodes into Text nodes
-sub _convert_cdata_to_text {
-    my @nodes = @_;
-    my @new;
-    foreach my $n ( @nodes ) {
-	if ( ref $n eq 'XML::LibXML::CDATASection' ) {
-	    $n = XML::LibXML::Text->new( $n->data() );
-	}
-	push @new, $n;
-    }
-    return @new;
-}
-
-# takes an array of nodes and concatenates all the Text nodes together
-sub _squash_text_nodes {
-    my @nodes = @_;
-    my @new;
-    my $last_type = '';
-    foreach my $n ( @nodes ) {
-	if ( $last_type eq 'XML::LibXML::Text' and ref $n eq 'XML::LibXML::Text' ) {
-	    $n = XML::LibXML::Text->new( $new[-1]->data() . $n->data() );
-	    $new[-1] = $n;
-	}
-	else {
-	    push @new, $n;
-	}
-	$last_type = ref $n;
-    }
-    return @new;
 }
 
 sub _fullname {
@@ -393,12 +353,11 @@ sub _outit {
 1;
 __END__
 
-#line 512
+#line 472
 
 # Local Variables:
 # mode:cperl
 # indent-tabs-mode: f
-# tab-width: 8
 # cperl-continued-statement-offset: 4
 # cperl-brace-offset: 0
 # cperl-close-paren-offset: 0

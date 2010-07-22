@@ -104,9 +104,15 @@ subtype "PRANG::XMLSchema::boolean"
 	=> where {
 		m/^(?:0|1|true|false)$/;
 	};
+
 coerce "Bool"
 	=> from 'PRANG::XMLSchema::boolean'
 	=> via { m{1|true} ? 1 : 0 };
+
+coerce "PRANG::XMLSchema::boolean"
+	=> from 'Bool'
+	=> via { (!!$_) ? "true" : "false" };
+
 subtype "PRANG::XMLSchema::decimal"
 	=> as "Num";
 
