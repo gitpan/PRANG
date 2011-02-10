@@ -1,5 +1,8 @@
 
 package PRANG::Cookbook::Role::Location;
+BEGIN {
+  $PRANG::Cookbook::Role::Location::VERSION = '0.13';
+}
 
 use Moose::Role;
 use PRANG::Graph;

@@ -1,5 +1,8 @@
 
 package PRANG::Marshaller;
+BEGIN {
+  $PRANG::Marshaller::VERSION = '0.13';
+}
 
 use Moose;
 use MooseX::Params::Validate;

@@ -1,5 +1,8 @@
 
 package PRANG::Cookbook::Location;
+BEGIN {
+  $PRANG::Cookbook::Location::VERSION = '0.13';
+}
 
 use Moose;
 use PRANG::Graph;

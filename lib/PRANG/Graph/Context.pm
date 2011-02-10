@@ -1,5 +1,8 @@
 
 package PRANG::Graph::Context;
+BEGIN {
+  $PRANG::Graph::Context::VERSION = '0.13';
+}
 
 use 5.010;
 use Moose;
@@ -245,6 +248,9 @@ sub exception {
 }
 
 package PRANG::Graph::Context::Error;
+BEGIN {
+  $PRANG::Graph::Context::Error::VERSION = '0.13';
+}
 
 use Moose;
 use MooseX::Params::Validate;

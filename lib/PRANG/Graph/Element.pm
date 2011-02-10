@@ -1,5 +1,8 @@
 
 package PRANG::Graph::Element;
+BEGIN {
+  $PRANG::Graph::Element::VERSION = '0.13';
+}
 
 use 5.010;
 use Moose;

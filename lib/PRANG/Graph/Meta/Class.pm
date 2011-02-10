@@ -1,4 +1,7 @@
 package PRANG::Graph::Meta::Class;
+BEGIN {
+  $PRANG::Graph::Meta::Class::VERSION = '0.13';
+}
 
 use 5.010;
 use Moose::Role;
@@ -540,6 +543,9 @@ sub to_libxml {
 }
 
 package Moose::Meta::Class::Custom::Trait::PRANG;
+BEGIN {
+  $Moose::Meta::Class::Custom::Trait::PRANG::VERSION = '0.13';
+}
 sub register_implementation {"PRANG::Graph::Meta::Class"}
 
 1;

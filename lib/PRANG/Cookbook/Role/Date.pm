@@ -1,5 +1,8 @@
 
 package PRANG::Cookbook::Role::Date;
+BEGIN {
+  $PRANG::Cookbook::Role::Date::VERSION = '0.13';
+}
 
 use Moose::Role;
 use PRANG::Graph;

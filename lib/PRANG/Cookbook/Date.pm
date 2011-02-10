@@ -1,5 +1,8 @@
 
 package PRANG::Cookbook::Date;
+BEGIN {
+  $PRANG::Cookbook::Date::VERSION = '0.13';
+}
 
 use Moose;
 use PRANG::Graph;

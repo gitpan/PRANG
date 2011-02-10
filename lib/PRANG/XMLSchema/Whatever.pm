@@ -57,6 +57,9 @@
 # specifications.
 
 package PRANG::XMLSchema::Whatever;
+BEGIN {
+  $PRANG::XMLSchema::Whatever::VERSION = '0.13';
+}
 
 use Moose;
 use MooseX::Params::Validate;

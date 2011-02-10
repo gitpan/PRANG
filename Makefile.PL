@@ -30,7 +30,7 @@ my %WriteMakefileArgs = (
     'Set::Object' => '1.09',
     'XML::LibXML' => '1.65'
   },
-  'VERSION' => '0.12',
+  'VERSION' => '0.13',
   'test' => {
     'TESTS' => 't/*.t'
   }

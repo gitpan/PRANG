@@ -1,5 +1,8 @@
 
 package PRANG::Util;
+BEGIN {
+  $PRANG::Util::VERSION = '0.13';
+}
 
 use Sub::Exporter -setup =>
 	{ exports => [qw(types_of)] };

@@ -1,5 +1,8 @@
 
 package PRANG::Graph::Quantity;
+BEGIN {
+  $PRANG::Graph::Quantity::VERSION = '0.13';
+}
 
 use Moose;
 use MooseX::Params::Validate;

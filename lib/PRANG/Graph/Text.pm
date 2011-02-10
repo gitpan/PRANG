@@ -1,5 +1,8 @@
 
 package PRANG::Graph::Text;
+BEGIN {
+  $PRANG::Graph::Text::VERSION = '0.13';
+}
 
 use Moose;
 use MooseX::Params::Validate;

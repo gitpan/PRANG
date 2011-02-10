@@ -1,5 +1,8 @@
 
 package PRANG::Graph::Class;
+BEGIN {
+  $PRANG::Graph::Class::VERSION = '0.13';
+}
 
 # this role is a hangover from the pre-metarole conversion.  It should
 # not be required any more.  You should use

@@ -1,5 +1,8 @@
 
 package PRANG::Graph::Choice;
+BEGIN {
+  $PRANG::Graph::Choice::VERSION = '0.13';
+}
 
 use 5.010;
 use Moose;

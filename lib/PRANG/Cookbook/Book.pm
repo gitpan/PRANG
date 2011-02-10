@@ -1,5 +1,8 @@
 
 package PRANG::Cookbook::Book;
+BEGIN {
+  $PRANG::Cookbook::Book::VERSION = '0.13';
+}
 
 use Moose;
 use PRANG::Graph;

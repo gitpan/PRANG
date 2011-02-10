@@ -1,5 +1,8 @@
 
 package PRANG::Graph::Seq;
+BEGIN {
+  $PRANG::Graph::Seq::VERSION = '0.13';
+}
 
 use Moose;
 use MooseX::Params::Validate;
