@@ -1,7 +1,7 @@
 
 package PRANG::Cookbook::Role::Location;
 BEGIN {
-  $PRANG::Cookbook::Role::Location::VERSION = '0.13';
+  $PRANG::Cookbook::Role::Location::VERSION = '0.14';
 }
 
 use Moose::Role;

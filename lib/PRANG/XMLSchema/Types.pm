@@ -1,7 +1,7 @@
 
 package PRANG::XMLSchema::Types;
 BEGIN {
-  $PRANG::XMLSchema::Types::VERSION = '0.13';
+  $PRANG::XMLSchema::Types::VERSION = '0.14';
 }
 
 use strict;

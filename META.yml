@@ -17,9 +17,9 @@ meta-spec:
 name: PRANG
 requires:
   JSON: 2.50
-  Moose: 0.92
+  Moose: 1.21
   MooseX::Params::Validate: 0.15
   Set::Object: 1.09
   XML::LibXML: 1.65
   perl: 5.010
-version: 0.13
+version: 0.14

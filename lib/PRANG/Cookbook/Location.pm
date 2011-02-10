@@ -1,7 +1,7 @@
 
 package PRANG::Cookbook::Location;
 BEGIN {
-  $PRANG::Cookbook::Location::VERSION = '0.13';
+  $PRANG::Cookbook::Location::VERSION = '0.14';
 }
 
 use Moose;

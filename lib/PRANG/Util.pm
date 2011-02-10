@@ -1,7 +1,7 @@
 
 package PRANG::Util;
 BEGIN {
-  $PRANG::Util::VERSION = '0.13';
+  $PRANG::Util::VERSION = '0.14';
 }
 
 use Sub::Exporter -setup =>

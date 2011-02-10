@@ -25,12 +25,12 @@ my %WriteMakefileArgs = (
   'NAME' => 'PRANG',
   'PREREQ_PM' => {
     'JSON' => '2.50',
-    'Moose' => '0.92',
+    'Moose' => '1.21',
     'MooseX::Params::Validate' => '0.15',
     'Set::Object' => '1.09',
     'XML::LibXML' => '1.65'
   },
-  'VERSION' => '0.13',
+  'VERSION' => '0.14',
   'test' => {
     'TESTS' => 't/*.t'
   }

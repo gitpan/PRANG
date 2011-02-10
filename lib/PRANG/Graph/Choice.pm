@@ -1,7 +1,7 @@
 
 package PRANG::Graph::Choice;
 BEGIN {
-  $PRANG::Graph::Choice::VERSION = '0.13';
+  $PRANG::Graph::Choice::VERSION = '0.14';
 }
 
 use 5.010;

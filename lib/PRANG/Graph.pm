@@ -1,7 +1,7 @@
 
 package PRANG::Graph;
 BEGIN {
-  $PRANG::Graph::VERSION = '0.13';
+  $PRANG::Graph::VERSION = '0.14';
 }
 
 use Moose::Role;
@@ -47,8 +47,11 @@ sub has_element {
 
 Moose::Exporter->setup_import_methods(
 	with_meta => [qw(has_attr has_element)],
-	metaclass_roles => [qw(PRANG::Graph::Meta::Class)],
+	class_metaroles => {
+	    class => [qw(PRANG::Graph::Meta::Class)],
+	},
 );
+
 
 requires 'xmlns';
 requires 'root_element';

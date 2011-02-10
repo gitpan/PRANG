@@ -1,7 +1,7 @@
 
 package PRANG::Cookbook;
 BEGIN {
-  $PRANG::Cookbook::VERSION = '0.13';
+  $PRANG::Cookbook::VERSION = '0.14';
 }
 
 use Moose::Role;
@@ -9,7 +9,7 @@ use PRANG::Graph;
 
 sub xmlns { }
 
-BEGIN { with 'PRANG::Graph', 'PRANG::Cookbook::Node'; }
+with 'PRANG::Graph', 'PRANG::Cookbook::Node';
 
 1;
 
