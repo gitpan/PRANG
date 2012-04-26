@@ -1,7 +1,7 @@
 
 package PRANG::Graph::Meta::Attr;
-BEGIN {
-  $PRANG::Graph::Meta::Attr::VERSION = '0.14';
+{
+  $PRANG::Graph::Meta::Attr::VERSION = '0.15';
 }
 
 use Moose::Role;
@@ -37,8 +37,8 @@ has 'xmlns_attr' =>
 	;
 
 package Moose::Meta::Attribute::Custom::Trait::PRANG::Attr;
-BEGIN {
-  $Moose::Meta::Attribute::Custom::Trait::PRANG::Attr::VERSION = '0.14';
+{
+  $Moose::Meta::Attribute::Custom::Trait::PRANG::Attr::VERSION = '0.15';
 }
 
 sub register_implementation {

@@ -2,37 +2,37 @@
 use strict;
 use warnings;
 
-BEGIN { require 5.010; }
+use 5.010;
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Moose XML Processor',
-  'AUTHOR' => 'Catalyst SRS Team <team-srs@catalyst.net.nz>',
-  'BUILD_REQUIRES' => {
-    'Scriptalicious' => '1.16',
-    'XML::Compare' => '0.04',
-    'YAML' => '0'
+  "ABSTRACT" => "Moose XML Processor",
+  "AUTHOR" => "Catalyst SRS Team <team-srs\@catalyst.net.nz>",
+  "BUILD_REQUIRES" => {
+    "Scriptalicious" => "1.16",
+    "XML::Compare" => "0.04",
+    "YAML" => 0
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'PRANG',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'PRANG',
-  'PREREQ_PM' => {
-    'JSON' => '2.50',
-    'Moose' => '1.21',
-    'MooseX::Params::Validate' => '0.15',
-    'Set::Object' => '1.09',
-    'XML::LibXML' => '1.65'
+  "DISTNAME" => "PRANG",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "PRANG",
+  "PREREQ_PM" => {
+    "JSON" => "2.50",
+    "Moose" => "1.21",
+    "MooseX::Params::Validate" => "0.15",
+    "Set::Object" => "1.09",
+    "XML::LibXML" => "1.65"
   },
-  'VERSION' => '0.14',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.15",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 

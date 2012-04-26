@@ -1,7 +1,7 @@
 
 package PRANG::Graph::Quantity;
-BEGIN {
-  $PRANG::Graph::Quantity::VERSION = '0.14';
+{
+  $PRANG::Graph::Quantity::VERSION = '0.15';
 }
 
 use Moose;

@@ -1,7 +1,7 @@
 
 package PRANG::Marshaller;
-BEGIN {
-  $PRANG::Marshaller::VERSION = '0.14';
+{
+  $PRANG::Marshaller::VERSION = '0.15';
 }
 
 use Moose;

@@ -1,7 +1,7 @@
 
 package PRANG::Cookbook::Role::Time;
-BEGIN {
-  $PRANG::Cookbook::Role::Time::VERSION = '0.14';
+{
+  $PRANG::Cookbook::Role::Time::VERSION = '0.15';
 }
 
 use Moose::Role;

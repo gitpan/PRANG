@@ -1,7 +1,7 @@
 
 package PRANG::Cookbook::Book;
-BEGIN {
-  $PRANG::Cookbook::Book::VERSION = '0.14';
+{
+  $PRANG::Cookbook::Book::VERSION = '0.15';
 }
 
 use Moose;

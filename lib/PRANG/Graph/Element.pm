@@ -1,7 +1,7 @@
 
 package PRANG::Graph::Element;
-BEGIN {
-  $PRANG::Graph::Element::VERSION = '0.14';
+{
+  $PRANG::Graph::Element::VERSION = '0.15';
 }
 
 use 5.010;

@@ -1,7 +1,7 @@
 
 package PRANG;
-BEGIN {
-  $PRANG::VERSION = '0.14';
+{
+  $PRANG::VERSION = '0.15';
 }
 
 1;

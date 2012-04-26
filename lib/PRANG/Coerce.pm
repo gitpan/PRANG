@@ -1,6 +1,6 @@
 package PRANG::Coerce;
-BEGIN {
-  $PRANG::Coerce::VERSION = '0.14';
+{
+  $PRANG::Coerce::VERSION = '0.15';
 }
 
 use Moose;
