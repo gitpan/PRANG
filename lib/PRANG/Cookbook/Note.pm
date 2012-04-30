@@ -1,7 +1,7 @@
 
 package PRANG::Cookbook::Note;
 {
-  $PRANG::Cookbook::Note::VERSION = '0.15';
+  $PRANG::Cookbook::Note::VERSION = '0.16';
 }
 
 use Moose;

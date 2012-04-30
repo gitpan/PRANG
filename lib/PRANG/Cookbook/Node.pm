@@ -1,7 +1,7 @@
 
 package PRANG::Cookbook::Node;
 {
-  $PRANG::Cookbook::Node::VERSION = '0.15';
+  $PRANG::Cookbook::Node::VERSION = '0.16';
 }
 
 use Moose::Role;

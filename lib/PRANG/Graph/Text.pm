@@ -1,7 +1,7 @@
 
 package PRANG::Graph::Text;
 {
-  $PRANG::Graph::Text::VERSION = '0.15';
+  $PRANG::Graph::Text::VERSION = '0.16';
 }
 
 use Moose;

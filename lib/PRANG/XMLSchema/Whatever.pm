@@ -58,7 +58,7 @@
 
 package PRANG::XMLSchema::Whatever;
 {
-  $PRANG::XMLSchema::Whatever::VERSION = '0.15';
+  $PRANG::XMLSchema::Whatever::VERSION = '0.16';
 }
 
 use Moose;

@@ -24,13 +24,13 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "PRANG",
   "PREREQ_PM" => {
-    "JSON" => "2.50",
-    "Moose" => "1.21",
-    "MooseX::Params::Validate" => "0.15",
+    "JSON" => "2.21",
+    "Moose" => "1.09",
+    "MooseX::Params::Validate" => "0.14",
     "Set::Object" => "1.09",
     "XML::LibXML" => "1.65"
   },
-  "VERSION" => "0.15",
+  "VERSION" => "0.16",
   "test" => {
     "TESTS" => "t/*.t"
   }

@@ -1,7 +1,7 @@
 
 package PRANG::Graph::Seq;
 {
-  $PRANG::Graph::Seq::VERSION = '0.15';
+  $PRANG::Graph::Seq::VERSION = '0.16';
 }
 
 use Moose;

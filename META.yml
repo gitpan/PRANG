@@ -16,12 +16,12 @@ meta-spec:
   version: 1.4
 name: PRANG
 requires:
-  JSON: 2.50
-  Moose: 1.21
-  MooseX::Params::Validate: 0.15
+  JSON: 2.21
+  Moose: 1.09
+  MooseX::Params::Validate: 0.14
   Set::Object: 1.09
   XML::LibXML: 1.65
   perl: 5.010
 resources:
   repository: https://github.com/catalyst/PRANG.git
-version: 0.15
+version: 0.16

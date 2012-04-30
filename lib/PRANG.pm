@@ -1,7 +1,7 @@
 
 package PRANG;
 {
-  $PRANG::VERSION = '0.15';
+  $PRANG::VERSION = '0.16';
 }
 
 1;

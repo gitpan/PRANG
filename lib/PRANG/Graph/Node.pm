@@ -1,7 +1,7 @@
 
 package PRANG::Graph::Node;
 {
-  $PRANG::Graph::Node::VERSION = '0.15';
+  $PRANG::Graph::Node::VERSION = '0.16';
 }
 
 use Moose::Role;
