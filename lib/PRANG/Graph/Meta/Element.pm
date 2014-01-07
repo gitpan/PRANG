@@ -1,7 +1,7 @@
 
 package PRANG::Graph::Meta::Element;
 {
-  $PRANG::Graph::Meta::Element::VERSION = '0.16';
+  $PRANG::Graph::Meta::Element::VERSION = '0.17';
 }
 
 use Moose::Role;
@@ -105,7 +105,7 @@ sub error {
     my ( $message ) = pos_validated_list(
         \@_,
         { isa => 'Str' },
-    );      
+    );
     
 	confess $self->_error($message);
 }
@@ -278,6 +278,10 @@ sub build_graph_node {
 						"$nodeName_r_prefix->{$xmlns}:$plugin_nodeName";
 				}
 				if ( exists $nodeName->{$plugin_nodeName} ) {
+				    use Data::Dumper;
+				    warn Dumper $nodeName;
+				    warn $plugin_nodeName;
+				    warn $user;
 					$self->error(
 "Both '$user' and '$nodeName->{$plugin_nodeName}' plug-in type specify nodename $plugin_nodeName"
 							.(
@@ -627,7 +631,7 @@ sub build_graph_node {
 
 package Moose::Meta::Attribute::Custom::Trait::PRANG::Element;
 {
-  $Moose::Meta::Attribute::Custom::Trait::PRANG::Element::VERSION = '0.16';
+  $Moose::Meta::Attribute::Custom::Trait::PRANG::Element::VERSION = '0.17';
 }
 
 sub register_implementation {

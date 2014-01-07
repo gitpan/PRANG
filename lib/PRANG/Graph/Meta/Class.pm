@@ -1,6 +1,6 @@
 package PRANG::Graph::Meta::Class;
 {
-  $PRANG::Graph::Meta::Class::VERSION = '0.16';
+  $PRANG::Graph::Meta::Class::VERSION = '0.17';
 }
 
 use 5.010;
@@ -169,7 +169,7 @@ sub accept_attributes {
 			{
 				if ( !$tc->check($attr->value) ) {
 					$context->exception(
-						"invalid value of attribute ".$attr->nodeName,
+						"invalid value '" . $attr->value . "' of attribute ".$attr->nodeName,
 						$attr->parentNode,
 					);
 				}
@@ -401,9 +401,12 @@ sub marshall_in_element {
 
 	my $value = eval { $self->name->new(@init_args) };
 	if ( !$value ) {
+	    my $error = $@;
+	    $error =~ m|^(.+) at /|;
+	    my $msg = $1;
 		$ctx->exception(
 			"Validation error from ".$self->name
-				." constructor: $@",
+				." constructor: $1",
 			$node,
 		);
 	}
@@ -544,7 +547,7 @@ sub to_libxml {
 
 package Moose::Meta::Class::Custom::Trait::PRANG;
 {
-  $Moose::Meta::Class::Custom::Trait::PRANG::VERSION = '0.16';
+  $Moose::Meta::Class::Custom::Trait::PRANG::VERSION = '0.17';
 }
 sub register_implementation {"PRANG::Graph::Meta::Class"}
 

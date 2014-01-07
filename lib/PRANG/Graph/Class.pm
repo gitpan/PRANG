@@ -1,7 +1,7 @@
 
 package PRANG::Graph::Class;
 {
-  $PRANG::Graph::Class::VERSION = '0.16';
+  $PRANG::Graph::Class::VERSION = '0.17';
 }
 
 # this role is a hangover from the pre-metarole conversion.  It should

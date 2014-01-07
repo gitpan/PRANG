@@ -1,7 +1,7 @@
 
 package PRANG::Cookbook::Date;
 {
-  $PRANG::Cookbook::Date::VERSION = '0.16';
+  $PRANG::Cookbook::Date::VERSION = '0.17';
 }
 
 use Moose;

@@ -1,7 +1,7 @@
 
 package PRANG::Graph;
 {
-  $PRANG::Graph::VERSION = '0.16';
+  $PRANG::Graph::VERSION = '0.17';
 }
 
 use Moose::Role;
@@ -102,6 +102,30 @@ sub parse_fh() {
 	return $instance;
 }
 
+sub from_dom {
+    my $class = shift;
+    my ( $dom, $lax ) = pos_validated_list(
+        \@_,
+        { isa => 'XML::LibXML::Document' },
+        { isa => 'Bool', optional => 1, default => 0 },
+    );
+
+    my $instance = $class->marshaller->from_dom( dom => $dom, lax => $lax  );
+    return $instance;
+}
+
+sub from_root_node {
+    my $class = shift;
+    my ( $root_node, $lax ) = pos_validated_list(
+        \@_,
+        { isa => 'XML::LibXML::Node' },
+        { isa => 'Bool', optional => 1, default => 0 },
+    );
+
+    my $instance = $class->marshaller->from_root_node( root_node => $root_node, lax => $lax  );
+    return $instance;
+}
+
 sub to_xml() {
     my $self = shift;
     my ( $format ) = pos_validated_list(
@@ -157,6 +181,7 @@ PRANG::Graph - XML mapping by peppering Moose attributes
  # alternatives
  $parsed = My::XML::Language->parse_file($filename);
  $parsed = My::XML::Language->parse_fh($fh);
+ $parsed = My::XML::Language->from_dom($dom); # $dom isa XML::LibXML::Document
 
  # converting back to XML
  print $parsed->to_xml;
